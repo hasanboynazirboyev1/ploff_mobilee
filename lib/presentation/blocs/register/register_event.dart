@@ -12,4 +12,11 @@ class SignNameEvent extends RegisterEvent{
   SignNameEvent(this.context);
 }
 class ConfirmLoginEvent extends RegisterEvent{}
-class RegisterConfirmEvent extends RegisterEvent{} 
+class RegisterConfirmEvent extends RegisterEvent{
+  BuildContext? context;
+  RegisterConfirmEvent(this.context);
+} 
+class ExitAccEvent extends RegisterEvent{
+  BuildContext? context;
+ExitAccEvent(this.context);
+}

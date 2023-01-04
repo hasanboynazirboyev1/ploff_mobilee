@@ -67,7 +67,7 @@ class RegisterConfirm extends StatelessWidget {
                  children: [
                    InkWell(
                      onTap: () {
-                      registerBloc.add(RegisterConfirmEvent());
+                      registerBloc.add(RegisterConfirmEvent(context));
                      },
                      child: Container(
                        height: 52,

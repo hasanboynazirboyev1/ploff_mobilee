@@ -8,15 +8,15 @@ import 'package:ploff_mobile/presentation/screens/home/main_home_page.dart';
 
 class RegisterConfirmApi {
   
-  static registerConfirm(String code, String number) async {
+  static registerConfirm(context,{String? code, String? number}) async {
      try {
        await Dio().post('$baseUrl/v1/customers/register-confirm',
-        data: {'phone': number, 'code': code},
+        data: {'phone': "+998$number", 'code': code},
         options: Options(headers: {
           'shipper': shipperId,
           'platform': '6bd7c2e3-d35e-47df-93ce-ed54ed53f95f'
         }));
-        
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: ((context) => const MainHomePage())), (route) => false);
      } catch (e) {
        
      }

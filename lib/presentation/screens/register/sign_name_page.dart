@@ -11,6 +11,7 @@ class SignNamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final registerBloc = context.read<RegisterBloc>();
     return BlocBuilder<RegisterBloc, RegisterState>(
       builder: (context, state) {
         if (state is RegisterHomeState ) {
@@ -67,7 +68,7 @@ class SignNamePage extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       
-                      
+                      registerBloc.add(SignNameEvent(context));
                     },
                     child: Container(
                       height: 52,
