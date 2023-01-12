@@ -15,7 +15,7 @@ class ProductDataWidget extends StatelessWidget {
       if (state is HomePageState) {
         return SliverList(
           delegate: SliverChildBuilderDelegate(
-            childCount: state.products!.categories!.length,
+            childCount: state.products!.length,
             (context, index) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 12),
@@ -28,7 +28,7 @@ class ProductDataWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      state.products!.categories![index].title!.ru.toString(),
+                      state.products![index].title!.toString(),
                       style: const TextStyle(
                           fontSize: 22,
                           color: Color(0xff2B2A28),
@@ -37,13 +37,14 @@ class ProductDataWidget extends StatelessWidget {
                     Container(
                         padding: const EdgeInsets.only(top: 16),
                         child: ListView.separated(
-                          itemCount: state.products!.categories!.length,
+                          itemCount: state.products!.length,
+                          
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return SizedBox(
                               height: 120,
-                              child: Container(
+                              child: SizedBox(
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -56,7 +57,7 @@ class ProductDataWidget extends StatelessWidget {
                                       children: [
                                         Text(
                                           state
-                                              .products!.categories![index].title!.ru
+                                              .products![index].title!
                                               .toString(),
                                           style: const TextStyle(
                                               fontSize: 15,
@@ -67,16 +68,16 @@ class ProductDataWidget extends StatelessWidget {
                                             padding: EdgeInsets.only(right: 16),
                                             width: 239,
                                             child: Text(
-                                              state.products!.categories![index]
-                                                  .description!.ru
+                                              state.products![index]
+                                                  .description!
                                                   .toString(),
                                               style: const TextStyle(
                                                   fontSize: 13,
                                                   color: Color(0xff858585)),
                                             )),
                                         Text(
-                                            state.products!.categories![index]
-                                                .products![1].outPrice
+                                            state.products![index]
+                                                .outPrice
                                                 .toString(),
                                             style: const TextStyle(
                                                 fontSize: 15,

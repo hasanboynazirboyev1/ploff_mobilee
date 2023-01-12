@@ -32,7 +32,7 @@ class BannerWidget extends StatelessWidget {
                       SizedBox(
                         height: 160,
                         child: PageView.builder(
-                            itemCount: state.banner!.banners!.length,
+                            itemCount: state.banner!.length,
                             onPageChanged: (value) {
                               homeBloc.add(BannerIndexEvent(value));
                             },
@@ -46,7 +46,7 @@ class BannerWidget extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(8),
                                     image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: NetworkImage(state.banner!.banners![index].image!)
+                                        image: NetworkImage(state.banner![index].image!)
                                 )));
                             }),
                       ),
@@ -55,14 +55,14 @@ class BannerWidget extends StatelessWidget {
                         height: 8,
                         child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: state.banner!.banners!.length,
+                                itemCount: state.banner!.length,
                                 shrinkWrap: true,
 
                                 itemBuilder: (context, index) {
                                   return Center(
                                     child: InkWell(
                                       child: AnimatedContainer(
-                                        duration: Duration(milliseconds: 200),
+                                        duration:const  Duration(milliseconds: 200),
                                         margin:const EdgeInsets.only(right: 1),
                                         height: 4,
                                         width: state.bannerIndex != index ? 8 : 16,

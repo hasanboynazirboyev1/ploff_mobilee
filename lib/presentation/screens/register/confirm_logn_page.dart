@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
-import 'package:ploff_mobile/datasouse/remote/confirm_login_api.dart';
+import 'package:ploff_mobile/data/datasouse/remote/confirm_login_api.dart';
 import 'package:ploff_mobile/presentation/blocs/register/register_bloc.dart';
 import 'package:ploff_mobile/presentation/screens/home/main_home_page.dart';
 

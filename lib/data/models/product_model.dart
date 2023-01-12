@@ -10,11 +10,11 @@ class ProductModel {
         this.count,
     });
 
-    List<Category>? categories;
+    List<Categorys>? categories;
     String ?count;
 
     factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-        categories: List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
+        categories: List<Categorys>.from(json["categories"].map((x) => Categorys.fromJson(x))),
         count: json["count"],
     );
 
@@ -24,8 +24,8 @@ class ProductModel {
     };
 }
 
-class Category {
-    Category({
+class Categorys {
+    Categorys({
         this.id,
         this.slug,
         this.parentId,
@@ -47,7 +47,7 @@ class Category {
     bool? active;
     List<Product>? products;
 
-    factory Category.fromJson(Map<String, dynamic> json) => Category(
+    factory Categorys.fromJson(Map<String, dynamic> json) => Categorys(
         id: json["id"],
         slug: json["slug"],
         parentId: json["parent_id"],

@@ -7,7 +7,7 @@ import 'package:gap/gap.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/presentation/blocs/home/home_bloc.dart';
 import 'package:ploff_mobile/presentation/widgets/banner_widget.dart';
-import 'package:ploff_mobile/presentation/widgets/product_tapbar_widget.dart';
+import 'package:ploff_mobile/presentation/widgets/product_data_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
             appBar: AppBar(
               elevation: 0,
               toolbarHeight: MediaQuery.of(context).size.height * 0.2,
-              backgroundColor: const Color(0xffffffff),
-              title: Container(
+              backgroundColor: Colors.white,
+              title: SizedBox(
                 child: Column(
                   children: [
                     Padding(
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                                         ? yellowColor
                                         : grayColor),
                                 child: Text(
-                                  state.products!.categories![index].title!.ru
+                                  state.products![index].title!
                                       .toString(),
                                   style: const TextStyle(
                                       fontSize: 15, color: Color(0xff2B2A28)),
