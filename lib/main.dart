@@ -23,17 +23,17 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        
-          scaffoldBackgroundColor: grayColor,
-          appBarTheme: const AppBarTheme(
-            iconTheme: IconThemeData(color: Colors.black),
-            color: Color(0xffF5F5F5),
-            elevation: 0)),
-      home:  const MainHomePage(),
+        scaffoldBackgroundColor: grayColor,
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.black),
+          color: Color(0xffF5F5F5),
+          elevation: 0,
+        ),
+      ),
+      home: const MainHomePage(),
     );
   }
 }
