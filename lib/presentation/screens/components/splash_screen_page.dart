@@ -17,14 +17,13 @@ class SplashScreenPage extends StatefulWidget {
 }
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
+  late bool isActive;
   @override
   void initState() {
     Timer(
         const Duration(seconds: 2),
-        (() => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: ((context) => const SignNumberPage())))));
+        (() => Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: ((context) => const MainHomePage())))));
     super.initState();
   }
 

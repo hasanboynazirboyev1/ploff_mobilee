@@ -16,16 +16,14 @@ class SignnumberApi {
       if (response.statusCode == 200) {
         await Dio().post('$baseUrl/v1/customers/login',
             data: {'phone': "+998$number", "tag": 'nimadur'},
-            options: Options(headers: {'shipper': shipperId})
-            
-            );
+            options: Options(headers: {'shipper': shipperId}));
       }
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: ((context) => ConfirmLoginPage(
-                      token: response.data['fcm_token'],
-                    ))));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: ((context) => ConfirmLoginPage(
+                    token: response.data['fcm_token'],
+                  ))));
     } catch (e) {
       Navigator.push(context,
           MaterialPageRoute(builder: ((context) => const SignNamePage())));

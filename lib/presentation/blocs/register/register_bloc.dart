@@ -1,5 +1,3 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -33,11 +31,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<RegisterConfirmEvent>((event, emit) async {
       final state = this.state as RegisterHomeState;
       await RegisterConfirmApi.registerConfirm(event.context,
-          code: state.codeController.text,number:  state.numberController.text);
+          code: state.codeController.text, number: state.numberController.text);
     });
     on<ExitAccEvent>((event, emit) async {
-    
-
       Navigator.pushAndRemoveUntil(
           event.context!,
           MaterialPageRoute(builder: ((context) => const SignNumberPage())),

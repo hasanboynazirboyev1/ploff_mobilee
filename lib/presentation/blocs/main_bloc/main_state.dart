@@ -1,15 +1,20 @@
 part of 'main_bloc.dart';
 
 @immutable
-abstract class MainState {
-  List page = [HomePage(), Text(''), Text('ss'), ProfilePage()];
-
-}
+abstract class MainState {}
 
 class MainInitial extends MainState {}
 
 class MainHomeState extends MainState {
-  
-  int activeIndex;
-  MainHomeState(this.activeIndex,);
+  bool? isActive ;
+  List <Widget>mainPageLis = [
+    HomePage(),
+    Center(child: Text('zakaz')),
+    Center(child: Text('aa')),
+    ProfilePage()
+  ];
+  int? activeIndex;
+  MainHomeState({
+    this.activeIndex,
+  });
 }

@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.0.15
   dio: ^4.0.6
   gap: ^2.0.1
+  flutter_keyboard_visibility: ^5.4.0
 
 dev_dependencies:
   flutter_test:
