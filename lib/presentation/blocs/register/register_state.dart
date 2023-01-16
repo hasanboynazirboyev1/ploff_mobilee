@@ -21,4 +21,6 @@ class RegisterHomeState extends RegisterState {
     "assets/profil_icons/map.svg",
     "assets/profil_icons/oprog.svg",
   ];
+  String? phone;
+  String? name;
 }

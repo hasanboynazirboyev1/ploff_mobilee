@@ -16,12 +16,14 @@ class RegisterConfirmApi {
             'shipper': shipperId,
             'platform': '6bd7c2e3-d35e-47df-93ce-ed54ed53f95f'
           }));
-      SharedPreferences setBoolean = await SharedPreferences.getInstance();
-      await setBoolean.setBool('isActive', true);
+
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: ((context) => const MainHomePage())),
           (route) => false);
+      final SharedPreferences setBoolean =
+          await SharedPreferences.getInstance();
+      await setBoolean.setBool('isActive', true);
     } catch (e) {}
   }
 }

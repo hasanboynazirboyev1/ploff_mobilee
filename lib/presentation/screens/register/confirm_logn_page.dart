@@ -11,12 +11,14 @@ import 'package:ploff_mobile/presentation/blocs/register/register_bloc.dart';
 import 'package:ploff_mobile/presentation/screens/home/main_home_page.dart';
 
 class ConfirmLoginPage extends StatelessWidget {
-  ConfirmLoginPage({super.key, this.token});
-  String? token;
+  ConfirmLoginPage({super.key,});
+  
 
   @override
   Widget build(BuildContext context) {
+    final registerBloc = context.read<RegisterBloc>();
     return BlocBuilder<RegisterBloc, RegisterState>(
+      
       builder: (context, state) {
         if (state is RegisterHomeState) {
           return KeyboardDismissOnTap(
@@ -72,15 +74,8 @@ class ConfirmLoginPage extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () async {
-                            await ConfirmLoginApi.confirmLogin(
-                                token: token!,
-                                number: state.numberController.text,
-                                code: state.codeController.text);
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) => MainHomePage())),
-                                (route) => false);
+                           registerBloc.add(ConfirmLoginEvent(context));
+                            
                           },
                           child: Container(
                             height: 52,

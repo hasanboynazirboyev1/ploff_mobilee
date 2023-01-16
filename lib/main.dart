@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/presentation/blocs/home/home_bloc.dart';
@@ -31,6 +32,11 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.black),
           color: Color(0xffF5F5F5),
           elevation: 0,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.light,
+          ),
         ),
       ),
       home: const MainHomePage(),

@@ -8,3 +8,7 @@ class ActiveIndexEvent extends MainEvent{
   int? index;
   ActiveIndexEvent({this.index,this.context});
 }
+class ExitAccEvent extends MainEvent{
+  BuildContext? context;
+ExitAccEvent(this.context);
+}

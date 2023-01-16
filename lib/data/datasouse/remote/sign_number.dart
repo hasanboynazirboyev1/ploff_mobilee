@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/presentation/screens/register/confirm_logn_page.dart';
 import 'package:ploff_mobile/presentation/screens/register/sign_name_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignnumberApi {
   static signNumber(context, String number) async {
@@ -18,12 +19,11 @@ class SignnumberApi {
             data: {'phone': "+998$number", "tag": 'nimadur'},
             options: Options(headers: {'shipper': shipperId}));
       }
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: ((context) => ConfirmLoginPage(
-                    token: response.data['fcm_token'],
-                  ))));
+      final SharedPreferences setShared = await SharedPreferences.getInstance();
+      await setShared.setString('phone', '+998$number');
+      await setShared.setString('name', response.data['name']);
+      Navigator.push(context,
+          MaterialPageRoute(builder: ((context) => ConfirmLoginPage())));
     } catch (e) {
       Navigator.push(context,
           MaterialPageRoute(builder: ((context) => const SignNamePage())));

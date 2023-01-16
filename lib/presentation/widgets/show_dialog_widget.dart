@@ -9,6 +9,7 @@ class SHowDialogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final registerBloc = context.read<RegisterBloc>();
     return BlocBuilder<RegisterBloc, RegisterState>(
       builder: (context, state) {
         return InkWell(
@@ -52,7 +53,9 @@ class SHowDialogWidget extends StatelessWidget {
                                 ),
                               ),
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  registerBloc.add(ExitAccEvent(context));
+                                },
                                 child: Container(
                                   padding: EdgeInsets.all(10),
                                   alignment: Alignment.center,

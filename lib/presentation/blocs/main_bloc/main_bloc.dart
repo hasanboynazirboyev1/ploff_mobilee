@@ -13,20 +13,25 @@ part 'main_state.dart';
 class MainBloc extends Bloc<MainEvent, MainState> {
   MainBloc() : super(MainInitial()) {
     on<MainEvent>((event, emit) {});
-    on<ActiveIndexEvent>((event, emit) {
-     final state = this.state as MainHomeState; 
-     
+    on<ActiveIndexEvent>((event, emit) async {
+      final state = this.state as MainHomeState;
+      SharedPreferences getIsActive = await SharedPreferences.getInstance();
+      state.isActive = (getIsActive.getBool('isActive') ?? false);
+
       if (event.index == 3) {
-        if (state.isActive == null) {
-          Navigator.push(event.context!, MaterialPageRoute(builder: ((context) => const SignNumberPage())));
+        if (state.isActive == false) {
+          Navigator.push(
+              event.context!,
+              MaterialPageRoute(
+                  builder: ((context) => const SignNumberPage())));
         }
       }
       emit(MainHomeState(activeIndex: event.index));
     });
     on<MainInititalEvent>((event, emit) async {
-      
-
-      emit(MainHomeState(activeIndex: 0, ));
+      emit(MainHomeState(
+        activeIndex: 0,
+      ));
     });
   }
 }
