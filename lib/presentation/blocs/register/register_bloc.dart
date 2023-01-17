@@ -31,18 +31,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     });
     on<ConfirmLoginEvent>((event, emit) async {
       final state = this.state as RegisterHomeState;
-      await ConfirmLoginApi.confirmLogin(event.context,
-          code: state.codeController.text,
-          number: state.numberController.text,
-          token:
-              'c5QOfICbQQyc17uiUUi9Ae:APA91bHErn_4T5Ucv8R8xlXsPk7gSjonKEBgfjJU2WDo6lZRl-6VIL_P_TWATqmv_9T-ItIOtZO7HEeq1juOZVQSxgaKzN2E46TQKj53r3bXqcUBEvjLMXs3EAW4vUbnSVNx-8fjxAlt');
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isActive', true);
-      Navigator.pushAndRemoveUntil(
-          event.context!,
-          MaterialPageRoute(builder: ((context) => const MainHomePage())),
-          (route) => false);
-         
+      await ConfirmLoginApi.confirmLogin(
+        code: state.codeController.text,
+        context: event.context,
+        number: state.numberController.text,
+      );
     });
     on<RegisterConfirmEvent>((event, emit) async {
       final state = this.state as RegisterHomeState;
@@ -54,7 +47,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<ExitAccEvent>((event, emit) async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setBool('isActive', false);
-
     });
   }
 }

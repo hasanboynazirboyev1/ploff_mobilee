@@ -21,9 +21,6 @@ class RegisterConfirmApi {
           context,
           MaterialPageRoute(builder: ((context) => const MainHomePage())),
           (route) => false);
-      final SharedPreferences setBoolean =
-          await SharedPreferences.getInstance();
-      await setBoolean.setBool('isActive', true);
     } catch (e) {}
   }
 }

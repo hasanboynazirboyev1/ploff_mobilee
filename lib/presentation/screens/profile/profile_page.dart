@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:ploff_mobile/presentation/blocs/main_bloc/main_bloc.dart';
 import 'package:ploff_mobile/presentation/blocs/register/register_bloc.dart';
 import 'package:ploff_mobile/presentation/widgets/show_dialog_widget.dart';
 
@@ -17,8 +18,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RegisterBloc, RegisterState>(builder: (context, state) {
-      if (state is RegisterHomeState) {
+    return BlocBuilder<MainBloc,MainState>(builder: (context, state) {
+      if (state is MainHomeState) {
         return Scaffold(
           appBar: AppBar(
             elevation: 0,

@@ -8,6 +8,7 @@ import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/presentation/blocs/home/home_bloc.dart';
 import 'package:ploff_mobile/presentation/widgets/banner_widget.dart';
 import 'package:ploff_mobile/presentation/widgets/product_data_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,6 +25,16 @@ class _HomePageState extends State<HomePage> {
       builder: (context, state) {
         if (state is HomePageState) {
           return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async {
+                final SharedPreferences prefs =
+                    await SharedPreferences.getInstance();
+                final name = prefs.getString('name');
+                final phone = prefs.getString('phone');
+                print(name);
+                print(phone);
+              },
+            ),
             appBar: AppBar(
               elevation: 0,
               toolbarHeight: MediaQuery.of(context).size.height * 0.2,
@@ -91,11 +102,11 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                   const Gap(16),
+                    const Gap(16),
                     SizedBox(
                       height: 56,
                       child: ListView.builder(
-                          itemCount: 4,
+                          itemCount: state.products!.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return InkWell(
@@ -114,8 +125,7 @@ class _HomePageState extends State<HomePage> {
                                         ? yellowColor
                                         : grayColor),
                                 child: Text(
-                                  state.products![index].title!
-                                      .toString(),
+                                  state.products![index].title!.toString(),
                                   style: const TextStyle(
                                       fontSize: 15, color: Color(0xff2B2A28)),
                                 ),

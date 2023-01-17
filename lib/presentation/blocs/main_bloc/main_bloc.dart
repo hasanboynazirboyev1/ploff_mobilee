@@ -26,12 +26,15 @@ class MainBloc extends Bloc<MainEvent, MainState> {
                   builder: ((context) => const SignNumberPage())));
         }
       }
-      emit(MainHomeState(activeIndex: event.index));
+      emit(MainHomeState(
+          activeIndex: event.index, name: state.name, phone: state.phone));
     });
     on<MainInititalEvent>((event, emit) async {
-      emit(MainHomeState(
-        activeIndex: 0,
-      ));
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final name = prefs.getString('name');
+      final phone = prefs.getString('phone');
+
+      emit(MainHomeState(activeIndex: 0, name: name, phone: phone));
     });
   }
 }

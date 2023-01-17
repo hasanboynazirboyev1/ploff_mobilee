@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ploff_mobile/presentation/blocs/main_bloc/main_bloc.dart';
 import 'package:ploff_mobile/presentation/screens/home/home_page.dart';
+import 'package:ploff_mobile/presentation/screens/order/order_tapbar_page.dart';
 import 'package:ploff_mobile/presentation/screens/profile/profile_page.dart';
 import 'package:ploff_mobile/presentation/screens/register/sign_name_page.dart';
 import 'package:ploff_mobile/presentation/screens/register/sign_number_page.dart';
@@ -26,9 +27,9 @@ class _MainHomePageState extends State<MainHomePage> {
         return Scaffold(
           body: IndexedStack(
             index: state.activeIndex,
-            children: const [
+            children: [
               HomePage(),
-              Center(child: Text('zakaz')),
+              OrderTabBarPage(),
               Center(child: Text('aa')),
               ProfilePage(),
             ],
@@ -46,24 +47,24 @@ class _MainHomePageState extends State<MainHomePage> {
             },
             items: [
               BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/svg_icons/home.svg"),
+                  icon: SvgPicture.asset("assets/svg_icons/bottom_nav_icons/home.svg"),
                   label: "Главная",
                   activeIcon:
-                      SvgPicture.asset("assets/svg_icons/home_activ.svg")),
+                      SvgPicture.asset("assets/svg_icons/bottom_nav_icons/home_activ.svg")),
               BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/svg_icons/cart3.svg"),
+                  icon: SvgPicture.asset("assets/svg_icons/bottom_nav_icons/cart3.svg"),
                   label: "Корзина",
                   activeIcon:
-                      SvgPicture.asset("assets/svg_icons/activ_shops.svg")),
+                      SvgPicture.asset("assets/svg_icons/bottom_nav_icons/activ_shops.svg")),
               BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/svg_icons/shop.svg"),
+                  icon: SvgPicture.asset("assets/svg_icons/bottom_nav_icons/shop.svg"),
                   label: "Мои заказы",
-                  activeIcon: SvgPicture.asset("assets/svg_icons/ashop.svg")),
+                  activeIcon: SvgPicture.asset("assets/svg_icons/bottom_nav_icons/ashop.svg")),
               BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/svg_icons/person.svg"),
+                  icon: SvgPicture.asset("assets/svg_icons/bottom_nav_icons/person.svg"),
                   label: "Профиль",
                   activeIcon:
-                      SvgPicture.asset("assets/svg_icons/activ_user.svg")),
+                      SvgPicture.asset("assets/svg_icons/bottom_nav_icons/activ_user.svg")),
             ],
           ),
         );
