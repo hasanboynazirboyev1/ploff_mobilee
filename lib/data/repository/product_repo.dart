@@ -1,6 +1,6 @@
-import 'package:ploff_mobile/data/datasouse/remote/product_api.dart';
-import 'package:ploff_mobile/domain/entites/product_entity.dart';
-import 'package:ploff_mobile/domain/repository/product_repository.dart';
+import 'package:ploff_mobile/features/home/data/datasourse/remote/product_api.dart';
+import 'package:ploff_mobile/features/home/domain/entitity/product_entity.dart';
+import 'package:ploff_mobile/features/home/domain/repositor/product_repository.dart';
 
 class ProductRepo extends ProductRepository {
   @override

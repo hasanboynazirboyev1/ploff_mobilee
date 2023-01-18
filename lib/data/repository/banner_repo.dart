@@ -1,6 +1,6 @@
-import 'package:ploff_mobile/data/datasouse/remote/banner_api.dart';
-import 'package:ploff_mobile/domain/entites/banner_entity.dart';
-import 'package:ploff_mobile/domain/repository/banner_repository.dart';
+import 'package:ploff_mobile/features/home/data/datasourse/remote/banner_api.dart';
+import 'package:ploff_mobile/features/home/domain/entitity/banner_entity.dart';
+import 'package:ploff_mobile/features/home/domain/repositor/banner_repository.dart';
 
 class BannerRepo extends BannerRepository {
   @override
