@@ -15,9 +15,8 @@ import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
 import '../../../backet/data/models/product_model.dart';
 
 class OneProductDatasPage extends StatefulWidget {
-  List<ProductEntity>? product;
-  int? index;
-  OneProductDatasPage({super.key, this.product, this.index});
+  OneProductModel? oneProductModel;
+  OneProductDatasPage({super.key,this.oneProductModel});
 
   @override
   State<OneProductDatasPage> createState() => _OneProductDatasPageState();
@@ -75,7 +74,7 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.product![widget.index!].title!,
+                        widget.oneProductModel!.title.ru,
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.w600),
                       ),
@@ -121,9 +120,9 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                           Padding(
                             padding: const EdgeInsets.only(right: 12),
                             child: Text(
-                              widget.product![widget.index!].outPrice!
+                              widget.oneProductModel!.outPrice
                                   .toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.w700),
                             ),
                           ),
@@ -134,15 +133,15 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                         child: ElevatedButton(
                             onPressed: (() async {
                               var productHiveDb = Hive.box('productDb');
-                              final product = widget.product![widget.index!];
+                              // final product = widget.product![widget.index!];
 
-                              await productHiveDb.add({
-                                "title": widget.product![widget.index!].title!
-                                    .toString(),
-                                "outPrice": widget
-                                    .product![widget.index!].outPrice!
-                                    .toString()
-                              });
+                              // await productHiveDb.add({
+                              //   "title": widget.product![widget.index!].title!
+                              //       .toString(),
+                              //   "outPrice": widget
+                              //       .product![widget.index!].outPrice!
+                              //       .toString()
+                              // });
                               
                             }),
                             child: const Text('Добавить в корзину ')),

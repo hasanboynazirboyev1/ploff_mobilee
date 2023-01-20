@@ -28,6 +28,8 @@ class _ProductDataWidgetState extends State<ProductDataWidget> {
             (context, index) {
               return InkWell(
                 onTap: () async {
+                  final oneProd = await OneProductApi.getOneProduct(
+                      state.products![index].id.toString());
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -35,7 +37,7 @@ class _ProductDataWidgetState extends State<ProductDataWidget> {
                                 create: (context) =>
                                     BacketBloc()..add(BacketIniitialEvent()),
                                 child: OneProductDatasPage(
-                                    product: state.products, index: index),
+                                    oneProductModel: oneProd),
                               ))));
                 },
                 child: Container(
@@ -91,7 +93,6 @@ class _ProductDataWidgetState extends State<ProductDataWidget> {
                                                 state.products![index]
                                                     .description!
                                                     .toString(),
-                                                    
                                                 style: const TextStyle(
                                                     fontSize: 13,
                                                     color: Color(0xff858585)),

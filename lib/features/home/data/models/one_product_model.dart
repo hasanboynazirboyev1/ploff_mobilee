@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:hive/hive.dart';
+
 OneProductModel oneProductModelFromJson(String str) => OneProductModel.fromJson(json.decode(str));
 
 String oneProductModelToJson(OneProductModel data) => json.encode(data.toJson());

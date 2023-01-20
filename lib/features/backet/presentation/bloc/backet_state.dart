@@ -7,5 +7,6 @@ class BacketInitial extends BacketState {}
 class BacketHomeState extends BacketState{
   
   List <Map<String,dynamic>>? productsItem = [];
+  OneProductModel? oneProductModel;
   BacketHomeState({this.productsItem});
 }
