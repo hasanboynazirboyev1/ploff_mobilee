@@ -20,19 +20,12 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc,ProfileState>(builder: (context, state) {
+    return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
       if (state is ProfileHomeState) {
         return Scaffold(
           appBar: AppBar(
-            elevation: 0,
-            centerTitle: true,
-            backgroundColor: Colors.white,
             title: const Text(
               "Профиль",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Color(0xff000000),
-                  fontWeight: FontWeight.w600),
             ),
           ),
           body: Column(
@@ -73,7 +66,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           color: Colors.white),
-                      
                       child: ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
@@ -93,24 +85,25 @@ class _ProfilePageState extends State<ProfilePage> {
                           }),
                           separatorBuilder: ((context, index) {
                             return const Padding(
-                              padding:  EdgeInsets.symmetric(horizontal: 12),
-                              child:  Divider(thickness: 1),
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: Divider(thickness: 1),
                             );
                           }),
                           itemCount: 4))
                 ],
               ),
-                Spacer(),
-              
+              Spacer(),
               Column(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
                   Padding(
-                    padding:
-                         EdgeInsets.only(right: 16, left: 16,),
+                    padding: EdgeInsets.only(
+                      right: 16,
+                      left: 16,
+                    ),
                     // child: SHowDialogWidget(),
                   ),
-                   Padding(
+                  Padding(
                     padding: EdgeInsets.only(top: 16, bottom: 16),
                     child: Center(
                       child: Text(

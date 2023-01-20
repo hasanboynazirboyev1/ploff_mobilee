@@ -12,9 +12,11 @@ class HomePageState extends HomeState {
 
   List<BannerEntity>? banner;
   List<ProductEntity>? products;
+  // OneProductModel? oneProductModel;
 
   HomePageState(
       {this.index,
+      
       this.tapbarBoleans,
       this.bannerIndex,
       this.banner,

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
+import 'package:ploff_mobile/features/home/data/models/one_product_model.dart';
 
 import 'package:ploff_mobile/features/home/presentation/widgets/banner_widget.dart';
 import 'package:ploff_mobile/features/home/presentation/widgets/product_data_widget.dart';
@@ -27,17 +28,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, state) {
         if (state is HomePageState) {
           return Scaffold(
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                final SharedPreferences prefs =
-                    await SharedPreferences.getInstance();
-                final name = prefs.getString('name');
-                final phone = prefs.getString('phone');
-               
-              },
-            ),
             appBar: AppBar(
-              elevation: 0,
               toolbarHeight: MediaQuery.of(context).size.height * 0.2,
               backgroundColor: Colors.white,
               title: SizedBox(
@@ -138,16 +129,18 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            body: const CustomScrollView(
+            body: CustomScrollView(
               slivers: [
-                BannerWidget(),
-                ProductDataWidget(),
+                state.banner!.isNotEmpty
+                    ? const BannerWidget()
+                    : const SliverGap(0),
+                const ProductDataWidget(),
               ],
             ),
           );
         } else {
           return const Scaffold(
-              body: Center(child: CircularProgressIndicator()));
+              body: Center(child: CircularProgressIndicator.adaptive()));
         }
       },
     );

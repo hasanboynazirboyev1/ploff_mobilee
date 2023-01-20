@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../order_bloc/order_bloc.dart';
+import '../../order_bloc/order_bloc.dart';
 
 
 class OrderDatasPage extends StatelessWidget {

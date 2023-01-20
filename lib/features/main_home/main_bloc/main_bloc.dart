@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:ploff_mobile/features/home/presentation/pages/home_page.dart';
 import 'package:ploff_mobile/features/profile/presentation/pages/profile_page.dart';
+import 'package:ploff_mobile/features/register/presentation/bloc/register_bloc.dart';
 import 'package:ploff_mobile/features/register/presentation/pages/sign_number_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,16 +25,20 @@ class MainBloc extends Bloc<MainEvent, MainState> {
           Navigator.push(
               event.context!,
               MaterialPageRoute(
-                  builder: ((context) =>  SignNumberPage())));
+                  builder: ((context) => BlocProvider(
+                        create: (context) => RegisterBloc(),
+                        child: const SignNumberPage(),
+                      ))));
         }
       }
       emit(MainHomeState(
-          activeIndex: event.index, ));
+        activeIndex: event.index,
+      ));
     });
     on<MainInititalEvent>((event, emit) async {
-     
-
-      emit(MainHomeState(activeIndex: 0, ));
+      emit(MainHomeState(
+        activeIndex: 0,
+      ));
     });
   }
 }

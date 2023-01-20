@@ -1,5 +1,5 @@
 
-import 'package:ploff_mobile/data/repository/product_repo.dart';
+import 'package:ploff_mobile/features/home/data/repository/product_repo.dart';
 import 'package:ploff_mobile/features/home/domain/entitity/product_entity.dart';
 
 import '../../../../core/usecase/usecase.dart';

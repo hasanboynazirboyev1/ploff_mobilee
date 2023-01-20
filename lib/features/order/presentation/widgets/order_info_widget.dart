@@ -63,6 +63,6 @@ class OrderNumberWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                );;
+                );
   }
 }

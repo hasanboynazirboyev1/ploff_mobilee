@@ -19,29 +19,15 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<RegisterInitialEvent>((event, emit) {
       emit(RegisterHomeState());
     });
-    // on<SignNumberEvent>((event, emit) async {
-     
-      
-    // });
+    
     on<SignNameEvent>((event, emit) async {
-      final state = this.state as RegisterHomeState;
-      // await SignNameApi.registerName(event.context,
-      //     name: state.nameController.text, number: state.numberController.text);
+      // final state = this.state as RegisterHomeState;
+      
     });
     on<ConfirmLoginEvent>((event, emit) async {
       final state = this.state as RegisterHomeState;
-      // await ConfirmLoginApi.confirmLogin(
-      //   code: state.codeController.text,
-      //   context: event.context,
-      //   number: state.numberController.text,
-      // );
     });
-    on<RegisterConfirmEvent>((event, emit) async {
-      // final state = this.state as RegisterHomeState;
-      // await RegisterConfirmApi.registerConfirm(
-      //     code: state.codeController.text, number: state.numberController.text);
-     
-    });
+    on<RegisterConfirmEvent>((event, emit) async {});
     on<ExitAccEvent>((event, emit) async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setBool('isActive', false);

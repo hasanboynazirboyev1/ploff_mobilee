@@ -13,7 +13,7 @@ import 'package:ploff_mobile/features/main_home/presentation/pages/main_home_pag
 import '../bloc/register_bloc.dart';
 
 class ConfirmLoginPage extends StatefulWidget {
-  ConfirmLoginPage({
+  const ConfirmLoginPage({
     super.key,
   });
 
@@ -24,102 +24,88 @@ class ConfirmLoginPage extends StatefulWidget {
 class _ConfirmLoginPageState extends State<ConfirmLoginPage> {
   late TextEditingController codeController;
 
-  
   @override
   void initState() {
-   codeController = TextEditingController(); 
+    codeController = TextEditingController();
     super.initState();
   }
+
+  @override
+  void dispose() {
+    codeController.delete();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final registerBloc = context.read<RegisterBloc>();
     return BlocBuilder<RegisterBloc, RegisterState>(
       builder: (context, state) {
-        if (state is RegisterHomeState) {
-          return KeyboardDismissOnTap(
-            child: Scaffold(
-              appBar: AppBar(),
-              body: Container(
-                margin: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: const [
-                        Text(
-                          "Регистрация",
-                          style: TextStyle(
-                              fontSize: 28,
-                              color: Color(0xff000000),
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      child: Form(
-                        child: Pinput(
-                          controller: codeController,
-                          validator: (v) {
-                            if (v!.isEmpty) {
-                              return "Неверный код";
-                            }
-                          },
-                          length: 6,
-                          defaultPinTheme: PinTheme(
-                              height: 48,
-                              width: 48,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Colors.grey[200])),
-                          focusedPinTheme: PinTheme(
-                              height: 48,
-                              width: 48,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.yellow),
+        return KeyboardDismissOnTap(
+          child: Scaffold(
+            appBar: AppBar(),
+            body: Container(
+              margin: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: const [
+                      Text(
+                        "Регистрация",
+                        style: TextStyle(
+                            fontSize: 28,
+                            color: Color(0xff000000),
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    child: Form(
+                      child: Pinput(
+                        controller: codeController,
+                        validator: (v) {
+                          if (v!.isEmpty) {
+                            return "Неверный код";
+                          }
+                        },
+                        length: 6,
+                        defaultPinTheme: PinTheme(
+                            height: 48,
+                            width: 48,
+                            decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                color: Colors.grey[200],
-                              )),
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        ),
+                                color: Colors.grey[200])),
+                        focusedPinTheme: PinTheme(
+                            height: 48,
+                            width: 48,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.yellow),
+                              borderRadius: BorderRadius.circular(12),
+                              color: Colors.grey[200],
+                            )),
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                       ),
                     ),
-                    Column(
-                      children: [
-                        InkWell(
-                          onTap: () async {
-                            print(codeController.text);
-                            final status = await ConfirmLoginApi.confirmLogin(code: codeController.text);
-                            // if (status == 200) {
-                              Navigator.pushNamedAndRemoveUntil(context, 'mainhome', (route) => false);
-                            // }
-                          },
-                          child: Container(
-                            height: 52,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: yellowColor,
-                                borderRadius: BorderRadius.circular(8)),
-                            child: const Text(
-                              "Продолжить",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xff000000),
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                  ),
+                  ElevatedButton(
+                      
+                      onPressed: (() async {
+                        final status = await ConfirmLoginApi.confirmLogin(
+                            code: codeController.text);
+                        if (status == 200) {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, 'mainhome', (route) => false);
+                        }
+                      }),
+                      child: const Text('Продолжить')),
+                ],
               ),
             ),
-          );
-        } else {
-          return CircularProgressIndicator();
-        }
+          ),
+        );
       },
     );
   }

@@ -1,5 +1,5 @@
 import 'package:ploff_mobile/core/usecase/usecase.dart';
-import 'package:ploff_mobile/data/repository/banner_repo.dart';
+import 'package:ploff_mobile/features/home/data/repository/banner_repo.dart';
 import 'package:ploff_mobile/features/home/domain/entitity/banner_entity.dart';
 
 class BannerUseCase extends UseCase {

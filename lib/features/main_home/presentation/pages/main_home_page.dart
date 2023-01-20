@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ploff_mobile/features/backet/presentation/pages/backet_page.dart';
 import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
 // import 'package:ploff_mobile/presentation/blocs/main_bloc/main_bloc.dart';
 import 'package:ploff_mobile/features/home/presentation/pages/home_page.dart';
@@ -14,7 +15,7 @@ import 'package:ploff_mobile/features/register/presentation/pages/sign_name_page
 import 'package:ploff_mobile/features/register/presentation/pages/sign_number_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../order/presentation/pages/order_tapbar_page.dart';
+import '../../../order/presentation/pages/orders_my/order_tapbar_page.dart';
 import '../../main_bloc/main_bloc.dart';
 
 class MainHomePage extends StatefulWidget {
@@ -38,7 +39,11 @@ class _MainHomePageState extends State<MainHomePage> {
                 create: (context) => HomeBloc()..add(HomeInitialEvent()),
                 child: HomePage(),
               ),
-              Center(child: Text('aa')),
+              BlocProvider(
+                create: (context) => HomeBloc()..add(HomeInitialEvent()),
+                child: BacketPage(),
+              ),
+              
               BlocProvider(
                 create: (context) => OrderBloc()..add(OrderInitialEvent()),
                 child: OrderTabBarPage(),

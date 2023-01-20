@@ -11,3 +11,8 @@ class BannerIndexEvent extends HomeEvent{
   int bannerIndex;
   BannerIndexEvent(this.bannerIndex);
 }
+class TapProductIndexEvent extends HomeEvent{
+  int tapProductIndex;
+  TapProductIndexEvent(this.tapProductIndex);
+}
+

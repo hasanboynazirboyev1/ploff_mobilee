@@ -27,13 +27,21 @@ class _RegisterConfirmPageState extends State<RegisterConfirmPage> {
     codeController = TextEditingController();
     super.initState();
   }
+
+  @override
+  void dispose() {
+    codeController.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final registerBloc = context.read<RegisterBloc>();
     return BlocBuilder<RegisterBloc, RegisterState>(
       builder: (context, state) {
-        if (state is RegisterHomeState) {
-          return KeyboardDismissOnTap(
+        return KeyboardDismissOnTap(
+          child: SafeArea(
             child: Scaffold(
               appBar: AppBar(),
               body: Container(
@@ -84,40 +92,22 @@ class _RegisterConfirmPageState extends State<RegisterConfirmPage> {
                         ),
                       ),
                     ),
-                    Column(
-                      children: [
-                        InkWell(
-                          onTap: () async {
-                            final a =await RegisterConfirmApi.registerConfirm(code: codeController.text);
-                            if (a == 200) {
-                              Navigator.pushNamedAndRemoveUntil(context, 'mainhome', (route) => false);
-                            }
-                          },
-                          child: Container(
-                            height: 52,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: yellowColor,
-                                borderRadius: BorderRadius.circular(8)),
-                            child: const Text(
-                              "Продолжить",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xff000000),
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                        )
-                      ],
-                    )
+                    ElevatedButton(
+                        onPressed: (() async {
+                          final a = await RegisterConfirmApi.registerConfirm(
+                              code: codeController.text);
+                          if (a == 200) {
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, 'mainhome', (route) => false);
+                          }
+                        }),
+                        child: Text('Продолжить'))
                   ],
                 ),
               ),
             ),
-          );
-        } else {
-          return CircularProgressIndicator();
-        }
+          ),
+        );
       },
     );
   }

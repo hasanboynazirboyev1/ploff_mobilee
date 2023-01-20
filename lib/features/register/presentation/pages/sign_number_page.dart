@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:gap/gap.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
+import 'package:ploff_mobile/features/main_home/main_bloc/main_bloc.dart';
 // import 'package:ploff_mobile/presentation/blocs/register/register_bloc.dart';
 import 'package:ploff_mobile/features/register/presentation/pages/sign_name_page.dart';
 
@@ -28,16 +29,23 @@ class _SignNumberPageState extends State<SignNumberPage> {
   }
 
   @override
+  void dispose() {
+    numberController.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterBloc, RegisterState>(
       builder: (context, state) {
-        if (state is RegisterHomeState) {
-          final registerBloc = context.read<RegisterBloc>();
-          return KeyboardDismissOnTap(
+        return KeyboardDismissOnTap(
+          child: SafeArea(
             child: Scaffold(
               appBar: AppBar(),
               body: Padding(
-                padding: const EdgeInsets.only(top: 46, left: 16, right: 16),
+                padding: const EdgeInsets.only(
+                    top: 46, left: 16, right: 16, bottom: 12),
                 child: Column(
                   children: [
                     const Gap(24),
@@ -81,10 +89,8 @@ class _SignNumberPageState extends State<SignNumberPage> {
                       ),
                     ),
                     const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: InkWell(
-                        onTap: () async {
+                    ElevatedButton(
+                        onPressed: (() async {
                           final statusCode = await SignnumberApi.signNumber(
                               numberController.text);
                           if (statusCode == 200) {
@@ -92,31 +98,14 @@ class _SignNumberPageState extends State<SignNumberPage> {
                           } else {
                             Navigator.pushNamed(context, 'registerconfirm');
                           }
-                        },
-                        child: Container(
-                          height: 52,
-                          width: double.infinity,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: yellowColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const Text(
-                            "Продолжить",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ),
-                    )
+                        }),
+                        child: Text('Продолжить'))
                   ],
                 ),
               ),
             ),
-          );
-        } else {
-          return const CircularProgressIndicator();
-        }
+          ),
+        );
       },
     );
   }
