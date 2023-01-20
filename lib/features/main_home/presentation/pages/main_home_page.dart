@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
 import 'package:ploff_mobile/features/backet/presentation/pages/backet_page.dart';
 import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
 // import 'package:ploff_mobile/presentation/blocs/main_bloc/main_bloc.dart';
@@ -39,11 +40,7 @@ class _MainHomePageState extends State<MainHomePage> {
                 create: (context) => HomeBloc()..add(HomeInitialEvent()),
                 child: HomePage(),
               ),
-              BlocProvider(
-                create: (context) => HomeBloc()..add(HomeInitialEvent()),
-                child: BacketPage(),
-              ),
-              
+              BacketPage(),
               BlocProvider(
                 create: (context) => OrderBloc()..add(OrderInitialEvent()),
                 child: OrderTabBarPage(),

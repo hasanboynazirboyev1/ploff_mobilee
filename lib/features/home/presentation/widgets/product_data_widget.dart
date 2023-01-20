@@ -91,6 +91,7 @@ class _ProductDataWidgetState extends State<ProductDataWidget> {
                                                 state.products![index]
                                                     .description!
                                                     .toString(),
+                                                    
                                                 style: const TextStyle(
                                                     fontSize: 13,
                                                     color: Color(0xff858585)),

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:ploff_mobile/features/home/presentation/pages/home_page.dart';
 import 'package:ploff_mobile/features/profile/presentation/pages/profile_page.dart';
@@ -36,6 +37,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       ));
     });
     on<MainInititalEvent>((event, emit) async {
+      await Hive.openBox('productDb');
       emit(MainHomeState(
         activeIndex: 0,
       ));

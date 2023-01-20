@@ -19,7 +19,7 @@ class _HiveExamState extends State<HiveExam> {
   openHiveBox() async {
     var box = Hive.box('productDb');
 
-    await box.add({"bb": "bb"});
+    // await box.add({"bb": "bb"});
     item = box.keys.map((key) {
       final item = box.get(key);
       return {"key": key, "bb": item["bb"]};

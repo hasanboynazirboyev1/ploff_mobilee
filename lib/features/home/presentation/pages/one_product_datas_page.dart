@@ -4,8 +4,10 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:hive/hive.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
+import 'package:ploff_mobile/features/home/data/datasourse/remote/product_api.dart';
 import 'package:ploff_mobile/features/home/data/models/one_product_model.dart';
 import 'package:ploff_mobile/features/home/domain/entitity/product_entity.dart';
 import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
@@ -13,9 +15,9 @@ import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
 import '../../../backet/data/models/product_model.dart';
 
 class OneProductDatasPage extends StatefulWidget {
-  List< ProductEntity>? product;
+  List<ProductEntity>? product;
   int? index;
-  OneProductDatasPage({super.key,this.product ,this.index});
+  OneProductDatasPage({super.key, this.product, this.index});
 
   @override
   State<OneProductDatasPage> createState() => _OneProductDatasPageState();
@@ -29,8 +31,8 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
         return SafeArea(
           child: Scaffold(
               body: CustomScrollView(
-                // physics: NeverScrollableScrollPhysics(),
-                
+            // physics: NeverScrollableScrollPhysics(),
+
             slivers: [
               SliverAppBar(
                 iconTheme: IconThemeData(color: Colors.white),
@@ -73,7 +75,7 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                       widget.product![widget.index!].title!,
+                        widget.product![widget.index!].title!,
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.w600),
                       ),
@@ -86,7 +88,7 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                 child: Container(
                   height: 200,
                   decoration: BoxDecoration(
-                  color: Colors.white,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
@@ -94,10 +96,14 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12,bottom: 23,top: 16),
-                        child: Text('Размер*',style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600),),
+                        padding: const EdgeInsets.only(
+                            left: 12, bottom: 23, top: 16),
+                        child: Text(
+                          'Размер*',
+                          style: TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.w600),
+                        ),
                       ),
-                      
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -112,24 +118,35 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                               ],
                             ),
                           ),
-
                           Padding(
                             padding: const EdgeInsets.only(right: 12),
-                            child: Text(widget.product![widget.index!].outPrice!.toString(),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w700),),
+                            child: Text(
+                              widget.product![widget.index!].outPrice!
+                                  .toString(),
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.w700),
+                            ),
                           ),
-                          
-                          
                         ],
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12),
                         child: ElevatedButton(
+                            onPressed: (() async {
+                              var productHiveDb = Hive.box('productDb');
+                              final product = widget.product![widget.index!];
 
-                          onPressed: (() {
+                              await productHiveDb.add({
+                                "title": widget.product![widget.index!].title!
+                                    .toString(),
+                                "outPrice": widget
+                                    .product![widget.index!].outPrice!
+                                    .toString()
+                              });
                               
-                            }), child: const Text('Добавить в корзину ')),
+                            }),
+                            child: const Text('Добавить в корзину ')),
                       ),
-                          
                     ],
                   ),
                 ),
@@ -138,8 +155,19 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
           )),
         );
       } else {
-        return const Center(child:  CircularProgressIndicator());
+        return const Center(child: CircularProgressIndicator());
       }
     });
+  }
+
+  getItem() {
+    var productHiveDb = Hive.box('productDb');
+
+    final data = productHiveDb.keys.map((key) {
+      final item = productHiveDb.get(key);
+      return {"key": key, "title": item["title"], "outPrice": item["outPrice"]};
+    }).toList();
+    List<Map<String,dynamic>> itemms = data.reversed.toList();
+    print(itemms);
   }
 }

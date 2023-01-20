@@ -12,13 +12,28 @@ class HomePageState extends HomeState {
 
   List<BannerEntity>? banner;
   List<ProductEntity>? products;
-  // OneProductModel? oneProductModel;
 
   HomePageState(
       {this.index,
-      
       this.tapbarBoleans,
       this.bannerIndex,
       this.banner,
       this.products});
+  HomePageState copyWIth(
+    {
+      int? index,
+      List? tapbarBoleans,
+      int? bannerIndex,
+      List<BannerEntity>? banner,
+      List<ProductEntity>? products,
+    }
+  ) {
+    return HomePageState(
+      index: index ?? this.index,
+      tapbarBoleans: tapbarBoleans ?? this.tapbarBoleans,
+      bannerIndex: bannerIndex ?? this.bannerIndex,
+      banner: banner ?? this.banner,
+      products: products ?? this.products,
+    );
+  }
 }
