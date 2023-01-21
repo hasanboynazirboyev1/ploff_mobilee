@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
 import 'package:ploff_mobile/features/home/data/datasourse/remote/one_product_api.dart';
-import 'package:ploff_mobile/features/home/presentation/pages/one_product_datas_page.dart';
+import 'package:ploff_mobile/features/backet/presentation/pages/one_product_datas_page.dart';
 
 import '../../data/models/one_product_model.dart';
 import '../bloc/home_bloc.dart';
@@ -28,16 +28,13 @@ class _ProductDataWidgetState extends State<ProductDataWidget> {
             (context, index) {
               return InkWell(
                 onTap: () async {
-                  final oneProd = await OneProductApi.getOneProduct(
-                      state.products![index].id.toString());
+                 
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: ((context) => BlocProvider(
-                                create: (context) =>
-                                    BacketBloc()..add(BacketIniitialEvent()),
-                                child: OneProductDatasPage(
-                                    oneProductModel: oneProd),
+                                create: (context) => BacketBloc()..add(OneProductEvent(id: state.products![index].id)),
+                                child: OneProductDatasPage(),
                               ))));
                 },
                 child: Container(

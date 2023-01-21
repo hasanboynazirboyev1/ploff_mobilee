@@ -6,17 +6,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:hive/hive.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
+import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_boxses.dart';
+import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_model.dart';
+import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_repo.dart';
 import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
 import 'package:ploff_mobile/features/home/data/datasourse/remote/product_api.dart';
 import 'package:ploff_mobile/features/home/data/models/one_product_model.dart';
 import 'package:ploff_mobile/features/home/domain/entitity/product_entity.dart';
 import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
 
-import '../../../backet/data/models/product_model.dart';
+import '../../data/models/product_model.dart';
 
 class OneProductDatasPage extends StatefulWidget {
-  OneProductModel? oneProductModel;
-  OneProductDatasPage({super.key,this.oneProductModel});
+  OneProductDatasPage({super.key, });
 
   @override
   State<OneProductDatasPage> createState() => _OneProductDatasPageState();
@@ -25,6 +27,7 @@ class OneProductDatasPage extends StatefulWidget {
 class _OneProductDatasPageState extends State<OneProductDatasPage> {
   @override
   Widget build(BuildContext context) {
+    final backetBloc = context.read<BacketBloc>();
     return BlocBuilder<BacketBloc, BacketState>(builder: (context, state) {
       if (state is BacketHomeState) {
         return SafeArea(
@@ -74,7 +77,8 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.oneProductModel!.title.ru,
+                        // '',
+                        state.oneProductModel!.title.ru,
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.w600),
                       ),
@@ -94,9 +98,8 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 12, bottom: 23, top: 16),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 12, bottom: 23, top: 16),
                         child: Text(
                           'Размер*',
                           style: TextStyle(
@@ -106,22 +109,37 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
+                          Container(
+                            margin: EdgeInsets.only(left: 16),
+                            decoration: BoxDecoration(
+                                border: Border.all(),
+                                borderRadius: BorderRadius.circular(12)),
                             width: 113,
+                            height: 44,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Icon(Icons.remove),
-                                Text('1'),
-                                Icon(Icons.add)
+                                IconButton(
+                                  onPressed: (() {
+                                    backetBloc.add(DecrementNumEvent());
+                                  }),
+                                  icon: const Icon(Icons.remove),
+                                ),
+                                Text('${state.productNum}'),
+                                IconButton(
+                                  onPressed: (() {
+                                    backetBloc.add(IncrementNumEvent());
+                                  }),
+                                  icon: const Icon(Icons.add),
+                                ),
                               ],
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 12),
                             child: Text(
-                              widget.oneProductModel!.outPrice
-                                  .toString(),
+                               '${state.oneProductModel!.outPrice * state.productNum} SUM',
+                              
                               style: const TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.w700),
                             ),
@@ -132,17 +150,8 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                         padding: const EdgeInsets.all(12),
                         child: ElevatedButton(
                             onPressed: (() async {
-                              var productHiveDb = Hive.box('productDb');
-                              // final product = widget.product![widget.index!];
-
-                              // await productHiveDb.add({
-                              //   "title": widget.product![widget.index!].title!
-                              //       .toString(),
-                              //   "outPrice": widget
-                              //       .product![widget.index!].outPrice!
-                              //       .toString()
-                              // });
-                              
+                              HiveRepo.setHive(
+                                  oneProductModel: state.oneProductModel);
                             }),
                             child: const Text('Добавить в корзину ')),
                       ),
@@ -157,16 +166,5 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
         return const Center(child: CircularProgressIndicator());
       }
     });
-  }
-
-  getItem() {
-    var productHiveDb = Hive.box('productDb');
-
-    final data = productHiveDb.keys.map((key) {
-      final item = productHiveDb.get(key);
-      return {"key": key, "title": item["title"], "outPrice": item["outPrice"]};
-    }).toList();
-    List<Map<String,dynamic>> itemms = data.reversed.toList();
-    print(itemms);
   }
 }

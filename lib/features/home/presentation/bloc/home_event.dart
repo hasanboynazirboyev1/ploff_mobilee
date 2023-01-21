@@ -16,4 +16,10 @@ class TapProductIndexEvent extends HomeEvent{
   TapProductIndexEvent(this.tapProductIndex);
 }
  class OpenHiveEvent extends HomeEvent{}
+ 
+// class OneProductEventt extends HomeEvent{
+//   int? productIndex;
+//   BuildContext? context;
+//   OneProductEventt({this.productIndex,this.context});
+// }
 

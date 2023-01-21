@@ -6,22 +6,22 @@ part of 'hive_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class OneProductModelAdapter extends TypeAdapter<OneProductModel> {
+class OneProductModelHiveAdapter extends TypeAdapter<OneProductModelHive> {
   @override
   final int typeId = 0;
 
   @override
-  OneProductModel read(BinaryReader reader) {
+  OneProductModelHive read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return OneProductModel(
+    return OneProductModelHive(
       id: fields[0] as String,
       slug: fields[1] as String,
-      title: fields[2] as Description,
+      title: fields[2] as String,
       code: fields[3] as String,
-      description: fields[4] as Description,
+      description: fields[4] as String,
       brand: fields[5] as dynamic,
       isDivisible: fields[6] as bool,
       count: fields[7] as String,
@@ -60,7 +60,7 @@ class OneProductModelAdapter extends TypeAdapter<OneProductModel> {
   }
 
   @override
-  void write(BinaryWriter writer, OneProductModel obj) {
+  void write(BinaryWriter writer, OneProductModelHive obj) {
     writer
       ..writeByte(39)
       ..writeByte(0)
@@ -149,47 +149,7 @@ class OneProductModelAdapter extends TypeAdapter<OneProductModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is OneProductModelAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class DescriptionAdapter extends TypeAdapter<Description> {
-  @override
-  final int typeId = 1;
-
-  @override
-  Description read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Description(
-      uz: fields[0] as String,
-      ru: fields[1] as String,
-      en: fields[2] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Description obj) {
-    writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.uz)
-      ..writeByte(1)
-      ..write(obj.ru)
-      ..writeByte(2)
-      ..write(obj.en);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is DescriptionAdapter &&
+      other is OneProductModelHiveAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

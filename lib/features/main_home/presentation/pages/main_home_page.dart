@@ -40,7 +40,7 @@ class _MainHomePageState extends State<MainHomePage> {
                 create: (context) => HomeBloc()..add(HomeInitialEvent()),
                 child: HomePage(),
               ),
-              BacketPage(),
+              HiveExam(),
               BlocProvider(
                 create: (context) => OrderBloc()..add(OrderInitialEvent()),
                 child: OrderTabBarPage(),

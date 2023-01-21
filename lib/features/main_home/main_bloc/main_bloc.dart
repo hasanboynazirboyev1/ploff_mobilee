@@ -21,17 +21,17 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       SharedPreferences getIsActive = await SharedPreferences.getInstance();
       state.isActive = (getIsActive.getBool('isActive') ?? false);
 
-      if (event.index == 3  || event.index == 2 || event.index == 1) {
-        if (state.isActive == false) {
-          Navigator.push(
-              event.context!,
-              MaterialPageRoute(
-                  builder: ((context) => BlocProvider(
-                        create: (context) => RegisterBloc(),
-                        child: const SignNumberPage(),
-                      ))));
-        }
-      }
+      // if (event.index == 3  || event.index == 2 || event.index == 1) {
+      //   if (state.isActive == false) {
+      //     Navigator.push(
+      //         event.context!,
+      //         MaterialPageRoute(
+      //             builder: ((context) => BlocProvider(
+      //                   create: (context) => RegisterBloc(),
+      //                   child: const SignNumberPage(),
+      //                 ))));
+      //   }
+      // }
       emit(MainHomeState(
         activeIndex: event.index,
       ));

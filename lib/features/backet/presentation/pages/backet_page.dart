@@ -1,95 +1,50 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
 import 'package:hive/hive.dart';
+import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_boxses.dart';
 import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
+import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-class BacketPage extends StatefulWidget {
-  const BacketPage({super.key});
+class HiveExam extends StatefulWidget {
+  HiveExam({super.key});
 
   @override
-  State<BacketPage> createState() => _BacketPageState();
+  State<HiveExam> createState() => _HiveExamState();
 }
 
-class _BacketPageState extends State<BacketPage> {
-  late List<Map<String, dynamic>> itemms;
-  @override
-  void initState() {
-    itemms = [];
-    getItem();
-    super.initState();
-  }
-
+class _HiveExamState extends State<HiveExam> {
   @override
   Widget build(BuildContext context) {
-    getItem();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Корзина'),
-        actions: [
-          IconButton(
-              onPressed: (() {
-                getItem();
-                setState(() {});
-              }),
-              icon: SvgPicture.asset(
-                  'assets/svg_icons/order_icons/ic_delate.svg')),
-        ],
-      ),
-      body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: itemms.isEmpty
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Gap(0),
-                    Column(
-                      children: [
-                        Image.asset('assets/img/backet_default.png'),
-                        const Gap(24),
-                        const Text('В корзине пока нет продукты'),
-                      ],
-                    ),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            minimumSize:
-                                Size(MediaQuery.of(context).size.height, 48)),
-                        onPressed: (() async {
-                          setState(() {});
-                        }),
-                        child: const Text('Продолжить')),
-                  ],
-                )
-              : ListView.separated(
-                  itemBuilder: ((context, index) {
-                    return ListTile(
-                      title: Text(itemms[index]['title']),
-                      subtitle: Text(itemms[index]['outPrice']),
-                    );
-                  }),
-                  separatorBuilder: ((context, index) {
-                    return Gap(12);
-                  }),
-                  itemCount: itemms.length)),
+    return BlocBuilder<BacketBloc, BacketState>(
+      builder: (context, state) {
+        if (state is BacketHomeState) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: ValueListenableBuilder(
+              valueListenable: HiveBoxses.getData().listenable(),
+              builder: (BuildContext context, Box<OneProductModelHive> box,
+                  Widget? child) {
+                List<OneProductModelHive> products =
+                    box.values.toList().cast<OneProductModelHive>();
+                return ListView.builder(
+                    itemCount: products.length,
+                    itemBuilder: ((context, index) {
+                      return ListTile(
+                        title: Text(products[index].title),
+                        subtitle: Text(products[index].createdAt),
+                      );
+                    }));
+              },
+            ),
+          );
+        } else {
+          return SizedBox();
+        }
+      },
     );
-  }
-
-  getItem() async {
-    await Hive.openBox('productDb');
-    var productHiveDb = Hive.box('productDb');
-
-    final data = productHiveDb.keys.map((key) {
-      final item = productHiveDb.get(key);
-      return {"key": key, "title": item["title"], "outPrice": item["outPrice"]};
-    }).toList();
-
-    setState(() {
-      itemms = data.reversed.toList();
-    });
-
-    // print("$itemms*****************");
   }
 }

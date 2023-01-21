@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
 import 'package:ploff_mobile/features/backet/presentation/pages/backet_page.dart';
 import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
 import 'package:ploff_mobile/features/home/presentation/pages/home_page.dart';
-import 'package:ploff_mobile/features/home/presentation/pages/one_product_datas_page.dart';
+import 'package:ploff_mobile/features/backet/presentation/pages/one_product_datas_page.dart';
 import 'package:ploff_mobile/features/main_home/presentation/pages/main_home_page.dart';
 import 'package:ploff_mobile/features/register/presentation/bloc/register_bloc.dart';
 import 'package:ploff_mobile/features/register/presentation/pages/confirm_logn_page.dart';
@@ -50,7 +51,7 @@ class AppRoutes {
                 case 'oneproduct':
         return MaterialPageRoute(
             builder: ((context) => BlocProvider(
-                  create: (context) => HomeBloc(),
+                  create: (context) => BacketBloc()..add(OneProductEvent()),
                   child:  OneProductDatasPage(),
                 )));
 

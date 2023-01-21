@@ -1,21 +1,21 @@
 // To parse this JSON data, do
 //
-//     final oneProductModel = oneProductModelFromJson(jsonString);
+//     final oneProductModelHive = oneProductModelHiveFromJson(jsonString);
 
 import 'dart:convert';
 
 import 'package:hive/hive.dart';
 part 'hive_model.g.dart';
 
-OneProductModel oneProductModelFromJson(String str) =>
-    OneProductModel.fromJson(json.decode(str));
+OneProductModelHive oneProductModelHiveFromJson(String str) =>
+    OneProductModelHive.fromJson(json.decode(str));
 
-String oneProductModelToJson(OneProductModel data) =>
+String oneProductModelHiveToJson(OneProductModelHive data) =>
     json.encode(data.toJson());
 
 @HiveType(typeId: 0)
-class OneProductModel {
-  OneProductModel({
+class OneProductModelHive {
+  OneProductModelHive({
     required this.id,
     required this.slug,
     required this.title,
@@ -62,11 +62,11 @@ class OneProductModel {
   @HiveField(1)
   String slug;
   @HiveField(2)
-  Description title;
+  String title;
   @HiveField(3)
   String code;
   @HiveField(4)
-  Description description;
+  String description;
   @HiveField(5)
   // List<Category> categories;
   dynamic brand;
@@ -137,13 +137,13 @@ class OneProductModel {
   @HiveField(39)
   String rkeeperId;
 
-  factory OneProductModel.fromJson(Map<String, dynamic> json) =>
-      OneProductModel(
+  factory OneProductModelHive.fromJson(Map<String, dynamic> json) =>
+      OneProductModelHive(
         id: json["id"],
         slug: json["slug"],
-        title: Description.fromJson(json["title"]),
+        title: json['title'],
         code: json["code"],
-        description: Description.fromJson(json["description"]),
+        description: json['description'],
         // categories: List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
         brand: json["brand"],
         isDivisible: json["is_divisible"],
@@ -186,9 +186,9 @@ class OneProductModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "slug": slug,
-        "title": title.toJson(),
+        "title": title,
         "code": code,
-        "description": description.toJson(),
+        "description": description,
         // "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
         "brand": brand,
         "is_divisible": isDivisible,
@@ -227,29 +227,4 @@ class OneProductModel {
       };
 }
 
-@HiveType(typeId: 1)
-class Description {
-  Description({
-    required this.uz,
-    required this.ru,
-    required this.en,
-  });
-  @HiveField(0)
-  String uz;
-  @HiveField(1)
-  String ru;
-  @HiveField(2)
-  String en;
 
-  factory Description.fromJson(Map<String, dynamic> json) => Description(
-        uz: json["uz"],
-        ru: json["ru"],
-        en: json["en"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "uz": uz,
-        "ru": ru,
-        "en": en,
-      };
-}

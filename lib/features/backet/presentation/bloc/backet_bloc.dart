@@ -14,12 +14,23 @@ class BacketBloc extends Bloc<BacketEvent, BacketState> {
   BacketBloc() : super(BacketInitial()) {
     // on<BacketEvent>((event, emit) {});
     on<BacketIniitialEvent>((event, emit) async {
-      
-     
-      emit(BacketHomeState());
+      emit(BacketHomeState(productNum: 1));
     });
-    // on<OneProductEvent>((event, emit) {
-    //   emit(BacketHomeState());
-    // });
+    on<OneProductEvent>((event, emit) async {
+      final oneProd = await OneProductApi.getOneProduct(event.id!);
+      emit(BacketHomeState(productNum: 1, oneProductModel: oneProd));
+    });
+    on<DecrementNumEvent>((event, emit) async {
+      final state = this.state as BacketHomeState;
+      emit(BacketHomeState(
+        productNum: state.productNum - 1,
+        oneProductModel: state.oneProductModel
+      ));
+    });
+    on<IncrementNumEvent>((event, emit) async {
+      final state = this.state as BacketHomeState;
+
+      emit(BacketHomeState(productNum: state.productNum + 1,oneProductModel: state.oneProductModel));
+    });
   }
 }

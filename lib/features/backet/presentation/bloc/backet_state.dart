@@ -4,9 +4,10 @@ part of 'backet_bloc.dart';
 abstract class BacketState {}
 
 class BacketInitial extends BacketState {}
-class BacketHomeState extends BacketState{
-  
-  List <Map<String,dynamic>>? productsItem = [];
+
+class BacketHomeState extends BacketState {
+  num productNum;
   OneProductModel? oneProductModel;
-  BacketHomeState({this.productsItem});
+
+  BacketHomeState({required this.productNum, this.oneProductModel});
 }

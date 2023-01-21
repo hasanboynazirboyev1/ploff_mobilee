@@ -19,15 +19,15 @@ class HomePageState extends HomeState {
       this.bannerIndex,
       this.banner,
       this.products});
-  HomePageState copyWIth(
-    {
-      int? index,
-      List? tapbarBoleans,
-      int? bannerIndex,
-      List<BannerEntity>? banner,
-      List<ProductEntity>? products,
-    }
-  ) {
+  HomePageState copyWIth({
+    int? index,
+    int? productNum,
+    List? tapbarBoleans,
+    int? bannerIndex,
+    OneProductModel? oneProductModel,
+    List<BannerEntity>? banner,
+    List<ProductEntity>? products,
+  }) {
     return HomePageState(
       index: index ?? this.index,
       tapbarBoleans: tapbarBoleans ?? this.tapbarBoleans,

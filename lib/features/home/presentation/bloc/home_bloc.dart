@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:ploff_mobile/features/home/data/datasourse/remote/one_product_api.dart';
@@ -13,6 +14,7 @@ import 'package:ploff_mobile/features/home/domain/entitity/product_entity.dart';
 import 'package:ploff_mobile/features/home/domain/usecase/banner_usecase.dart';
 import 'package:ploff_mobile/features/home/domain/usecase/product_usecase.dart';
 
+import '../../../backet/presentation/bloc/backet_bloc.dart';
 import '../../data/models/one_product_model.dart';
 
 part 'home_event.dart';
@@ -33,9 +35,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
     on<TapbarIndexEvent>((event, emit) {
       final state = this.state as HomePageState;
+
       state.tapbarBoleans![event.index!] = !state.tapbarBoleans![event.index!];
       emit(
-        HomePageState().copyWIth(tapbarBoleans: state.tapbarBoleans),
+        HomePageState(tapbarBoleans: state.tapbarBoleans),
       );
     });
     on<BannerIndexEvent>((event, emit) {
@@ -46,8 +49,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           banner: state.banner,
           products: state.products));
     });
-    // on<OpenHiveEvent>((event, emit) async{
-    //   await Hive.openBox('productDb');
+
+    // on<OneProductEventt>((event, emit) async {
+    //   final state = this.state as HomePageState;
+
+    //   final oneProd = await OneProductApi.getOneProduct(
+    //       state.products![event.productIndex!].id.toString());
+
     // });
   }
 }
