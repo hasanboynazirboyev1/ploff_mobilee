@@ -11,7 +11,8 @@ class HomePageState extends HomeState {
   int? bannerIndex;
 
   List<BannerEntity>? banner;
-  List<ProductEntity>? products;
+  // List<ProductEntity>? products;
+  ProductModel? products;
 
   HomePageState(
       {this.index,
@@ -24,9 +25,9 @@ class HomePageState extends HomeState {
     int? productNum,
     List? tapbarBoleans,
     int? bannerIndex,
-    OneProductModel? oneProductModel,
     List<BannerEntity>? banner,
-    List<ProductEntity>? products,
+    // List<ProductEntity>? products,
+    ProductModel? products,
   }) {
     return HomePageState(
       index: index ?? this.index,

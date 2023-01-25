@@ -10,4 +10,13 @@ class BacketHomeState extends BacketState {
   OneProductModel? oneProductModel;
 
   BacketHomeState({required this.productNum, this.oneProductModel});
+
+  BacketHomeState copyWIth({
+    num? productNum,
+    OneProductModel? oneProductModel,
+  }) {
+    return BacketHomeState(
+        oneProductModel: oneProductModel ?? this.oneProductModel,
+        productNum: productNum ?? this.productNum);
+  }
 }

@@ -9,7 +9,7 @@ class OneProductEvent extends BacketEvent{
 }
 class IncrementNumEvent extends BacketEvent{}
 class DecrementNumEvent extends BacketEvent{}
-
+class ClearBoxEvent extends BacketEvent{}
 
 
 

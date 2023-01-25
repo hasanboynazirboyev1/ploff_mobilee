@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
-import 'package:ploff_mobile/features/home/data/datasourse/remote/one_product_api.dart';
+import 'package:ploff_mobile/features/backet/data/datasourse/remote/one_product_api.dart';
 import 'package:ploff_mobile/features/home/data/models/banner_model.dart';
 import 'package:ploff_mobile/features/home/data/models/product_model.dart';
 import 'package:ploff_mobile/features/home/data/datasourse/remote/banner_api.dart';
@@ -25,7 +25,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeEvent>((event, emit) {});
     on<HomeInitialEvent>((event, emit) async {
       final banners = await BannerUseCase(repo: BannerRepo()).call(1);
-      final product = await ProductUsecase(repo: ProductRepo()).call(1);
+      // final product = await ProductUsecase(repo: ProductRepo()).call(1);
+      final product = await ProducTestApi.getProducts();
 
       emit(HomePageState(
           tapbarBoleans: List.generate(4, (index) => false),
@@ -37,25 +38,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final state = this.state as HomePageState;
 
       state.tapbarBoleans![event.index!] = !state.tapbarBoleans![event.index!];
-      emit(
-        HomePageState(tapbarBoleans: state.tapbarBoleans),
-      );
+      emit(state.copyWIth());
     });
     on<BannerIndexEvent>((event, emit) {
       final state = this.state as HomePageState;
-      emit(HomePageState(
-          bannerIndex: event.bannerIndex,
-          tapbarBoleans: state.tapbarBoleans,
-          banner: state.banner,
-          products: state.products));
+      emit(state.copyWIth(bannerIndex: state.bannerIndex));
     });
-
-    // on<OneProductEventt>((event, emit) async {
-    //   final state = this.state as HomePageState;
-
-    //   final oneProd = await OneProductApi.getOneProduct(
-    //       state.products![event.productIndex!].id.toString());
-
-    // });
   }
 }

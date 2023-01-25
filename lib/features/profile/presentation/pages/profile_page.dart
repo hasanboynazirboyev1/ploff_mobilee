@@ -8,7 +8,6 @@ import 'package:ploff_mobile/features/profile/presentation/bloc/profile_bloc.dar
 
 import 'package:ploff_mobile/features/profile/presentation/widgets/profile_show_dialog_widget.dart';
 
-import '../../../main_home/main_bloc/main_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

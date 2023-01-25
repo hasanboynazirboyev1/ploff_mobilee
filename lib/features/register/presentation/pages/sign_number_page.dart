@@ -5,8 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:gap/gap.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
-import 'package:ploff_mobile/features/main_home/main_bloc/main_bloc.dart';
-// import 'package:ploff_mobile/presentation/blocs/register/register_bloc.dart';
+import 'package:ploff_mobile/features/main_home/presentation/main_bloc/main_bloc.dart';
 import 'package:ploff_mobile/features/register/presentation/pages/sign_name_page.dart';
 
 import '../../data/datasouse/remote/sign_number.dart';
@@ -37,12 +36,18 @@ class _SignNumberPageState extends State<SignNumberPage> {
 
   @override
   Widget build(BuildContext context) {
+    final mainBloc = context.read<MainBloc>();
     return BlocBuilder<RegisterBloc, RegisterState>(
       builder: (context, state) {
         return KeyboardDismissOnTap(
           child: SafeArea(
             child: Scaffold(
-              appBar: AppBar(),
+              appBar: AppBar(
+                leading: IconButton(onPressed: (() {
+                     mainBloc.add(ThrowfirstPageEvent());
+                     Navigator.pop(context);
+                }), icon: const Icon(Icons.arrow_back_sharp)),
+              ),
               body: Padding(
                 padding: const EdgeInsets.only(
                     top: 46, left: 16, right: 16, bottom: 12),

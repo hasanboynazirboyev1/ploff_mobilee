@@ -6,7 +6,7 @@ import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart'
 import 'package:ploff_mobile/features/backet/presentation/pages/backet_page.dart';
 import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_model.dart';
 import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
-import 'package:ploff_mobile/features/main_home/main_bloc/main_bloc.dart';
+import 'package:ploff_mobile/features/main_home/presentation/main_bloc/main_bloc.dart';
 import 'package:ploff_mobile/features/order/presentation/order_bloc/order_bloc.dart';
 import 'package:ploff_mobile/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -20,21 +20,24 @@ import 'package:ploff_mobile/features/register/presentation/pages/sign_number_pa
 import 'package:ploff_mobile/routes/app_routes.dart';
 
 import 'features/register/presentation/bloc/register_bloc.dart';
+import 'helpers/my_bloc_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(OneProductModelHiveAdapter());
-  await Hive.openBox<OneProductModelHive>('hiveProductBox');
+  await Hive.openBox<OneProductModelHive>('productBox');
+   Bloc.observer = MyBlocObserver();
 
   runApp(MultiBlocProvider(providers: [
     BlocProvider(
         create: (context) => RegisterBloc()..add(RegisterInitialEvent())),
-         BlocProvider(
-        create: (context) => HomeBloc()..add(HomeInitialEvent())),
-         BlocProvider(
-        create: (context) => BacketBloc()..add(BacketIniitialEvent())),
-  ], child: const MyApp()));
+        //  BlocProvider(
+        // create: (context) => HomeBloc()..add(HomeInitialEvent())),
+     
+  ], child: const MyApp(),
+  )
+  );
 }
 
 class MyApp extends StatelessWidget {

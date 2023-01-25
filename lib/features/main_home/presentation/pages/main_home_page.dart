@@ -17,7 +17,7 @@ import 'package:ploff_mobile/features/register/presentation/pages/sign_number_pa
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../order/presentation/pages/orders_my/order_tapbar_page.dart';
-import '../../main_bloc/main_bloc.dart';
+import '../main_bloc/main_bloc.dart';
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({super.key});
@@ -40,7 +40,10 @@ class _MainHomePageState extends State<MainHomePage> {
                 create: (context) => HomeBloc()..add(HomeInitialEvent()),
                 child: HomePage(),
               ),
-              HiveExam(),
+              BlocProvider(
+                create: (context) => BacketBloc()..add(BacketIniitialEvent()),
+                child: BacketPage(),
+              ),
               BlocProvider(
                 create: (context) => OrderBloc()..add(OrderInitialEvent()),
                 child: OrderTabBarPage(),

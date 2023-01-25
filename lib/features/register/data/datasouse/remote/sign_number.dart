@@ -22,6 +22,7 @@ class SignnumberApi {
       final SharedPreferences setShared = await SharedPreferences.getInstance();
       await setShared.setString('phone', '+998$number');
       await setShared.setString('name', response.data['name']);
+      await setShared.setString('customer_id', response.data['id']);
      return response.statusCode;
     } catch (e) {
     

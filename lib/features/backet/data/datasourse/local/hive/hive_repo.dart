@@ -1,12 +1,12 @@
 
 import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_model.dart';
-import 'package:ploff_mobile/features/home/data/datasourse/remote/one_product_api.dart';
+import 'package:ploff_mobile/features/backet/data/datasourse/remote/one_product_api.dart';
 import 'package:ploff_mobile/features/home/data/models/one_product_model.dart';
 
 import 'hive_boxses.dart';
 
 class HiveRepo {
-  static setHive({OneProductModel? oneProductModel}) async {
+  static setHive({OneProductModel? oneProductModel,String? count}) async {
     final prod = oneProductModel;
 
     final productDatas = OneProductModelHive(
@@ -16,7 +16,7 @@ class HiveRepo {
         code: prod.code,
         description: prod.description.ru,
         isDivisible: prod.isDivisible,
-        count: prod.count,
+        count: count!,
         tags: prod.tags,
         inPrice: prod.inPrice,
         outPrice: prod.outPrice,

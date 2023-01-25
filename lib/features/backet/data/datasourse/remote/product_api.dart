@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:ploff_mobile/features/backet/data/models/product_model.dart';
+
+import '../../../../home/data/models/product_model.dart';
 
 class ProductApiBac {
    static getOneProduct() async {

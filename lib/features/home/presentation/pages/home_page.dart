@@ -8,7 +8,7 @@ import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/features/home/data/models/one_product_model.dart';
 
 import 'package:ploff_mobile/features/home/presentation/widgets/banner_widget.dart';
-import 'package:ploff_mobile/features/home/presentation/widgets/product_data_widget.dart';
+import 'package:ploff_mobile/features/home/presentation/widgets/category_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../bloc/home_bloc.dart';
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 56,
                       child: ListView.builder(
-                          itemCount: state.products!.length,
+                          itemCount: state.products!.categories!.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return InkWell(
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                                         ? yellowColor
                                         : grayColor),
                                 child: Text(
-                                  state.products![index].title!.toString(),
+                                  state.products!.categories![index].title!.ru.toString(),
                                   style: const TextStyle(
                                       fontSize: 15, color: Color(0xff2B2A28)),
                                 ),
@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                 state.banner!.isNotEmpty
                     ? const BannerWidget()
                     : const SliverGap(0),
-                const ProductDataWidget(),
+                const CategoryWidget(),
               ],
             ),
           );

@@ -2,44 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:hive/hive.dart';
-import 'package:ploff_mobile/constants/app_constatnts.dart';
-import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_boxses.dart';
-import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_model.dart';
-import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_repo.dart';
 import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
-import 'package:ploff_mobile/features/backet/presentation/widgets/loading_product_widget.dart';
-import 'package:ploff_mobile/features/home/data/datasourse/remote/product_api.dart';
-import 'package:ploff_mobile/features/home/data/models/one_product_model.dart';
-import 'package:ploff_mobile/features/home/domain/entitity/product_entity.dart';
-import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
-import 'package:ploff_mobile/features/main_home/presentation/main_bloc/main_bloc.dart';
 
+import '../../../../constants/app_constatnts.dart';
 
-class OneProductDatasPage extends StatefulWidget {
-  OneProductDatasPage({
-    super.key,
-  });
+class LoadingProductWidget extends StatelessWidget {
+  const LoadingProductWidget({super.key});
 
-  @override
-  State<OneProductDatasPage> createState() => _OneProductDatasPageState();
-}
-
-class _OneProductDatasPageState extends State<OneProductDatasPage> {
   @override
   Widget build(BuildContext context) {
-    final backetBloc = context.read<BacketBloc>();
-   
-    return BlocBuilder<BacketBloc, BacketState>(builder: (context, state) {
-      if (state is BacketHomeState) {
-        return SafeArea(
+    return SafeArea(
           child: Scaffold(
               body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                iconTheme: IconThemeData(color: Colors.white),
+                iconTheme: const IconThemeData(color: Colors.white),
                 systemOverlayStyle: const SystemUiOverlayStyle(
                   statusBarColor: Colors.transparent,
                 ),
@@ -77,18 +55,18 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: const [
                       Text(
-                        // '',
-                        state.oneProductModel!.title.ru,
-                        style: const TextStyle(
+                        '',
+                        // state.oneProductModel!.title.ru,
+                        style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
                 ),
               ),
-              const SliverGap(170),
+              SliverGap(170),
               SliverToBoxAdapter(
                 child: Container(
                   height: 200,
@@ -112,51 +90,42 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            margin: const EdgeInsets.only(left: 16),
+                            margin: EdgeInsets.only(left: 16),
                             decoration: BoxDecoration(
                                 border: Border.all(),
                                 borderRadius: BorderRadius.circular(12)),
-                            width: 120,
+                            width: 113,
                             height: 44,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
+                              children: const [
                                 IconButton(
-                                  onPressed: (() {
-                                    backetBloc.add(DecrementNumEvent());
-                                  }),
-                                  icon: const Icon(Icons.remove),
+                                  onPressed: null,
+                                  icon:  Icon(Icons.remove),
                                 ),
-                                Text('${state.productNum}'),
+                                Text('1'),
                                 IconButton(
-                                  onPressed: (() {
-                                    backetBloc.add(IncrementNumEvent());
-                                  }),
-                                  icon: const Icon(Icons.add),
+                                  onPressed: null,
+                                  icon:  Icon(Icons.add),
                                 ),
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 12),
+                          const Padding(
+                            padding:  EdgeInsets.only(right: 12),
                             child: Text(
-                              '${state.oneProductModel!.outPrice * state.productNum} SUM',
-                              style: const TextStyle(
+                              'narxi',
+                              style:  TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.w700),
                             ),
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(12),
+                      const Padding(
+                        padding: EdgeInsets.all(12),
                         child: ElevatedButton(
-                            onPressed: (() async {
-                              HiveRepo.setHive(
-                                  oneProductModel: state.oneProductModel,
-                                  count: state.productNum.toString());
-                                  Navigator.pop(context);
-                            }),
-                            child: const Text('Добавить в корзину ')),
+                            onPressed: null,
+                            child: Text('Добавить в корзину ')),
                       ),
                     ],
                   ),
@@ -165,10 +134,5 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
             ],
           )),
         );
-      } else {
-        return const  LoadingProductWidget(); 
-        
-      }
-    });
   }
 }

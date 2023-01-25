@@ -21,17 +21,11 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       SharedPreferences getIsActive = await SharedPreferences.getInstance();
       state.isActive = (getIsActive.getBool('isActive') ?? false);
 
-      // if (event.index == 3  || event.index == 2 || event.index == 1) {
-      //   if (state.isActive == false) {
-      //     Navigator.push(
-      //         event.context!,
-      //         MaterialPageRoute(
-      //             builder: ((context) => BlocProvider(
-      //                   create: (context) => RegisterBloc(),
-      //                   child: const SignNumberPage(),
-      //                 ))));
-      //   }
-      // }
+      if (event.index == 3 || event.index == 2 || event.index == 1) {
+        if (state.isActive == false) {
+          Navigator.pushNamed(event.context!, 'signnumber');
+        }
+      }
       emit(MainHomeState(
         activeIndex: event.index,
       ));
@@ -41,6 +35,9 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       emit(MainHomeState(
         activeIndex: 0,
       ));
+    });
+    on<ThrowfirstPageEvent>((event, emit) {
+      emit(MainHomeState(activeIndex: 0));
     });
   }
 }

@@ -12,3 +12,4 @@ class ExitAccEvent extends MainEvent{
   BuildContext? context;
 ExitAccEvent(this.context);
 }
+class ThrowfirstPageEvent extends MainEvent{}
