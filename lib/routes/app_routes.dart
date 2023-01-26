@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
 import 'package:ploff_mobile/features/backet/presentation/pages/backet_page.dart';
+import 'package:ploff_mobile/features/design_order/presentation/bloc/design_order_bloc.dart';
+import 'package:ploff_mobile/features/design_order/presentation/pages/design_order_tabBar_page.dart';
 import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
 import 'package:ploff_mobile/features/home/presentation/pages/home_page.dart';
 import 'package:ploff_mobile/features/backet/presentation/pages/one_product_datas_page.dart';
@@ -53,6 +55,12 @@ class AppRoutes {
             builder: ((context) => BlocProvider(
                   create: (context) => BacketBloc()..add(OneProductEvent()),
                   child:  OneProductDatasPage(),
+                )));
+                case 'designorder':
+        return MaterialPageRoute(
+            builder: ((context) => BlocProvider(
+                  create: (context) => DesignOrderBloc()..add(DesignOrderInitialEvent()),
+                  child:  DesignOrderTabBarPage(),
                 )));
 
       default:

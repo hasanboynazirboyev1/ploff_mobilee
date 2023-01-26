@@ -5,6 +5,8 @@ import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
 import 'package:ploff_mobile/features/backet/presentation/pages/backet_page.dart';
 import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_model.dart';
+import 'package:ploff_mobile/features/design_order/presentation/bloc/design_order_bloc.dart';
+import 'package:ploff_mobile/features/design_order/presentation/pages/design_order_tabBar_page.dart';
 import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
 import 'package:ploff_mobile/features/main_home/presentation/main_bloc/main_bloc.dart';
 import 'package:ploff_mobile/features/order/presentation/order_bloc/order_bloc.dart';
@@ -18,11 +20,13 @@ import 'package:ploff_mobile/features/register/presentation/pages/confirm_logn_p
 import 'package:ploff_mobile/features/register/presentation/pages/sign_name_page.dart';
 import 'package:ploff_mobile/features/register/presentation/pages/sign_number_page.dart';
 import 'package:ploff_mobile/routes/app_routes.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 import 'features/register/presentation/bloc/register_bloc.dart';
 import 'helpers/my_bloc_observer.dart';
 
 void main() async {
+  AndroidYandexMap.useAndroidViewSurface = false;
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(OneProductModelHiveAdapter());
@@ -33,7 +37,7 @@ void main() async {
     BlocProvider(
         create: (context) => RegisterBloc()..add(RegisterInitialEvent())),
         //  BlocProvider(
-        // create: (context) => HomeBloc()..add(HomeInitialEvent())),
+        // create: (context) => DesignOrderBloc()..add(DesignOrderInitialEvent())),
      
   ], child: const MyApp(),
   )
@@ -48,7 +52,7 @@ class MyApp extends StatelessWidget {
       create: (context) => MainBloc()..add(MainInititalEvent()),
       child: MaterialApp(
         initialRoute: '/',
-        // home: HiveExam(),
+        // home: DesignOrderTabBarPage(),
         onGenerateRoute: (settings) => AppRoutes.generateRoute(settings),
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,

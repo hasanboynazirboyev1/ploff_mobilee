@@ -9,7 +9,13 @@ class OneProductEvent extends BacketEvent{
 }
 class IncrementNumEvent extends BacketEvent{}
 class DecrementNumEvent extends BacketEvent{}
+class AddProductHiveEvent extends BacketEvent{}
 class ClearBoxEvent extends BacketEvent{}
+class DelateProdEvent extends BacketEvent{
+  String? id;
+  DelateProdEvent(this.id);
+}
+
 
 
 

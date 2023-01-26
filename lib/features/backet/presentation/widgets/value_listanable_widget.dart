@@ -4,10 +4,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_model.dart';
 import 'package:ploff_mobile/features/backet/data/repository/backet_servise_api.dart';
 import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
 
+import '../../../design_order/data/repository/design_order_api.dart';
 import '../../data/datasourse/local/hive/hive_boxses.dart';
 
 class ValueListanableWidget extends StatelessWidget {
@@ -21,11 +23,11 @@ class ValueListanableWidget extends StatelessWidget {
         if (state is BacketHomeState) {
           return Scaffold(
             body: ValueListenableBuilder(
-              valueListenable: HiveBoxses.getData().listenable() ,
+              valueListenable: HiveBoxses.getData().listenable(),
               builder: (BuildContext context, Box<OneProductModelHive> box,
                   Widget? child) {
-               final List<OneProductModelHive> products =
-                    box.values.toList().cast<OneProductModelHive>();
+                
+                final products = HiveBoxses.getProduct(box);
                 return CustomScrollView(
                   slivers: [
                     SliverPadding(
@@ -69,8 +71,9 @@ class ValueListanableWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     IconButton(
-                                        onPressed: (() {
-                                          box.delete(products[index].id);
+                                        onPressed: (() async {
+                                          backetBloc.add(DelateProdEvent(
+                                              products[index].id));
                                         }),
                                         icon: const Icon(
                                           Icons.clear,
@@ -136,20 +139,28 @@ class ValueListanableWidget extends StatelessWidget {
                         }, childCount: products.length),
                       ),
                     ),
+                    SliverFillRemaining(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            color: whiteColor,
+                            padding: EdgeInsets.all(16),
+                            child: ElevatedButton(
+                              child: Text('Оформить заказ'),
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'designorder');
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 );
               },
             ),
-            floatingActionButton: Padding(
-              padding: const EdgeInsets.only(left: 32),
-              child: ElevatedButton(
-                onPressed: () async {
-                  await BacketServiseApi.getCustomerAdress();
-                  await BacketServiseApi.getNearestBranch();
-                },
-                child: const Text('Оформить заказ'),
-              ),
-            ),
+           
           );
         } else {
           return SizedBox();

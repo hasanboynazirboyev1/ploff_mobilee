@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:hive/hive.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
@@ -17,7 +18,6 @@ import 'package:ploff_mobile/features/home/domain/entitity/product_entity.dart';
 import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
 import 'package:ploff_mobile/features/main_home/presentation/main_bloc/main_bloc.dart';
 
-
 class OneProductDatasPage extends StatefulWidget {
   OneProductDatasPage({
     super.key,
@@ -31,7 +31,7 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
   @override
   Widget build(BuildContext context) {
     final backetBloc = context.read<BacketBloc>();
-   
+
     return BlocBuilder<BacketBloc, BacketState>(builder: (context, state) {
       if (state is BacketHomeState) {
         return SafeArea(
@@ -39,31 +39,46 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
               body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                iconTheme: IconThemeData(color: Colors.white),
+                leading: IconButton(onPressed: (() {
+                  Navigator.pop(context);
+                }), icon: SvgPicture.asset('assets/svg_icons/order_icons/ic_back.svg')),
+                actions: [
+                  SvgPicture.asset('assets/svg_icons/order_icons/ic_connect.svg'),
+                ],
+                iconTheme: const IconThemeData(color: Colors.white),
                 systemOverlayStyle: const SystemUiOverlayStyle(
-                  statusBarColor: Colors.transparent,
+                  statusBarColor: Colors.green,
+                  statusBarIconBrightness: Brightness.light,
+                  statusBarBrightness: Brightness.dark,
                 ),
                 backgroundColor: yellowColor,
-                centerTitle: true,
                 expandedHeight: 240,
-                floating: false,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Image.asset(
-                    'assets/home_/123.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                bottom: PreferredSize(
-                    preferredSize: Size(400, 10),
-                    child: Container(
-                      height: 12,
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              topRight: Radius.circular(12))),
-                    )),
+                
+                flexibleSpace: Stack(
+                      children: [
+                        Positioned(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image:
+                                        AssetImage("assets/home_/123.jpg"))),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 7,
+                            decoration: const BoxDecoration(
+                                color: Color(0xffffffff),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(12),
+                                    topRight: Radius.circular(12))),
+                          ),
+                        ),
+                      ],
+                    )
               ),
               SliverToBoxAdapter(
                 child: Container(
@@ -151,10 +166,8 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                         padding: const EdgeInsets.all(12),
                         child: ElevatedButton(
                             onPressed: (() async {
-                              HiveRepo.setHive(
-                                  oneProductModel: state.oneProductModel,
-                                  count: state.productNum.toString());
-                                  Navigator.pop(context);
+                              backetBloc.add(AddProductHiveEvent());
+                              Navigator.pop(context);
                             }),
                             child: const Text('Добавить в корзину ')),
                       ),
@@ -166,8 +179,7 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
           )),
         );
       } else {
-        return const  LoadingProductWidget(); 
-        
+        return const LoadingProductWidget();
       }
     });
   }

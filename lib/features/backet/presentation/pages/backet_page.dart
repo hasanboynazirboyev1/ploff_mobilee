@@ -93,7 +93,7 @@ class _BacketPageState extends State<BacketPage> {
                                               Navigator.pop(context);
                                             },
                                             child: Container(
-                                              padding: EdgeInsets.symmetric(
+                                              padding: const EdgeInsets.symmetric(
                                                   horizontal: 25),
                                               alignment: Alignment.center,
                                               height: 50,
@@ -123,7 +123,7 @@ class _BacketPageState extends State<BacketPage> {
                               );
                             }));
                       }),
-                      icon: SvgPicture.asset(
+                        icon:  SvgPicture.asset(
                           'assets/svg_icons/order_icons/ic_delate.svg'))
                 ],
                 title: const Text('Корзина'),
