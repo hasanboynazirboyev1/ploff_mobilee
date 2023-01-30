@@ -38,9 +38,7 @@ class _RegisterConfirmPageState extends State<RegisterConfirmPage> {
   @override
   Widget build(BuildContext context) {
     final registerBloc = context.read<RegisterBloc>();
-    return BlocBuilder<RegisterBloc, RegisterState>(
-      builder: (context, state) {
-        return KeyboardDismissOnTap(
+     return KeyboardDismissOnTap(
           child: SafeArea(
             child: Scaffold(
               appBar: AppBar(),
@@ -108,7 +106,5 @@ class _RegisterConfirmPageState extends State<RegisterConfirmPage> {
             ),
           ),
         );
-      },
-    );
   }
 }

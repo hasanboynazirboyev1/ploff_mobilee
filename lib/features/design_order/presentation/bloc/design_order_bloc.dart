@@ -17,7 +17,8 @@ class DesignOrderBloc extends Bloc<DesignOrderEvent, DesignOrderState> {
     on<DesignOrderInitialEvent>((event, emit) async {
       final NearestBranchModel getnearestBranch =
           await DesigOrderApi.getNearestBranch();
-          final CustomerAdressModel customerAdres = await DesigOrderApi.getCustomerAdress();
+      final CustomerAdressModel customerAdres =
+          await DesigOrderApi.getCustomerAdress();
 
       emit(DesignOrderHomeState(
         customerAdress: customerAdres,
@@ -27,8 +28,8 @@ class DesignOrderBloc extends Bloc<DesignOrderEvent, DesignOrderState> {
             List.generate(getnearestBranch.branches.length, (index) => true),
         latitude: 41.311081,
         longitude: 69.240562,
-        checkCurier: List.generate(2, (index) => index == 0 ? false: true),
-        checkClock: List.generate(2, (index) => index == 0 ? false: true),
+        checkCurier: List.generate(2, (index) => index == 0 ? false : true),
+        checkClock: List.generate(2, (index) => index == 0 ? false : true),
       ));
     });
     on<CheckBoxFilialEvent>((event, emit) async {

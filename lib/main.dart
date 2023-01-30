@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ploff_mobile/aaa/test_screen.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
 import 'package:ploff_mobile/features/backet/presentation/pages/backet_page.dart';
@@ -31,56 +32,50 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(OneProductModelHiveAdapter());
   await Hive.openBox<OneProductModelHive>('productBox');
-   Bloc.observer = MyBlocObserver();
+  Bloc.observer = MyBlocObserver();
 
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider(
-        create: (context) => RegisterBloc()..add(RegisterInitialEvent())),
-        //  BlocProvider(
-        // create: (context) => DesignOrderBloc()..add(DesignOrderInitialEvent())),
-     
-  ], child: const MyApp(),
-  )
-  );
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (context) => MainBloc()..add(MainInititalEvent())),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MainBloc()..add(MainInititalEvent()),
-      child: MaterialApp(
-        initialRoute: '/',
-        // home: DesignOrderTabBarPage(),
-        onGenerateRoute: (settings) => AppRoutes.generateRoute(settings),
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.system,
-        theme: ThemeData(
-          progressIndicatorTheme:
-              const ProgressIndicatorThemeData(color: yellowColor),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 48),
-                  elevation: 0,
-                  foregroundColor: Colors.black,
-                  alignment: Alignment.center,
-                  backgroundColor: yellowColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)))),
-          scaffoldBackgroundColor: grayColor,
-          appBarTheme: const AppBarTheme(
-            centerTitle: true,
-            iconTheme: IconThemeData(color: Colors.black),
-            color: Color(0xffFFFFFF),
-            titleTextStyle: TextStyle(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
-            elevation: 0,
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Colors.white,
-              statusBarIconBrightness: Brightness.dark,
-              statusBarBrightness: Brightness.light,
-            ),
+    return MaterialApp(
+      initialRoute: '/',
+      // home: TestScreen(),
+      onGenerateRoute: (settings) => AppRoutes.generateRoute(settings),
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
+      theme: ThemeData(
+        progressIndicatorTheme:
+            const ProgressIndicatorThemeData(color: yellowColor),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 48),
+                elevation: 0,
+                foregroundColor: Colors.black,
+                alignment: Alignment.center,
+                backgroundColor: yellowColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)))),
+        scaffoldBackgroundColor: grayColor,
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          iconTheme: IconThemeData(color: Colors.black),
+          color: Color(0xffFFFFFF),
+          titleTextStyle: TextStyle(
+              color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
+          elevation: 0,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.light,
           ),
         ),
       ),

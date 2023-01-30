@@ -28,75 +28,64 @@ class _SignNamePageState extends State<SignNamePage> {
   @override
   Widget build(BuildContext context) {
     final registerBloc = context.read<RegisterBloc>();
-    return BlocBuilder<RegisterBloc, RegisterState>(
-      builder: (context, state) {
-        if (state is RegisterHomeState) {
-          return KeyboardDismissOnTap(
-            child: SafeArea(
-              child: Scaffold(
-                appBar: AppBar(),
-                body: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 46, left: 16, right: 16, bottom: 12),
-                  child: Column(
-                    children: [
-                      const Gap(24),
-                      Container(
-                        height: 33,
-                        width: double.infinity,
-                        alignment: Alignment.centerLeft,
-                        child: const Text(
-                          "ism familya",
-                          style: TextStyle(
-                              fontSize: 28, fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      const Gap(24),
-                      const Spacer(),
-                      Container(
-                          width: double.infinity,
-                          alignment: Alignment.centerLeft,
-                          child: const Text(
-                            'Ism familya',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w400),
-                          )),
-                      const Gap(4),
-                      TextField(
-                        autofocus: true,
-                        controller: nameController,
-                        decoration: InputDecoration(
-                          hintStyle: const TextStyle(color: Colors.black),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: yellowColor)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: yellowColor)),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: yellowColor)),
-                        ),
-                      ),
-                      const Spacer(),
-                      ElevatedButton(
-                          
-                          onPressed: (() async {
-                            await SignNameApi.registerName(
-                                name: nameController.text);
-                            Navigator.pushNamed(context, 'registerconfirm');
-                          }),
-                          child: const Text('Продолжить')),
-                    ],
+    return KeyboardDismissOnTap(
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(),
+          body: Padding(
+            padding:
+                const EdgeInsets.only(top: 46, left: 16, right: 16, bottom: 12),
+            child: Column(
+              children: [
+                const Gap(24),
+                Container(
+                  height: 33,
+                  width: double.infinity,
+                  alignment: Alignment.centerLeft,
+                  child: const Text(
+                    "ism familya",
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
                   ),
                 ),
-              ),
+                const Gap(24),
+                const Spacer(),
+                Container(
+                    width: double.infinity,
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      'Ism familya',
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+                    )),
+                const Gap(4),
+                TextField(
+                  autofocus: true,
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    hintStyle: const TextStyle(color: Colors.black),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(color: yellowColor)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(color: yellowColor)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(color: yellowColor)),
+                  ),
+                ),
+                const Spacer(),
+                ElevatedButton(
+                    onPressed: (() async {
+                      await SignNameApi.registerName(name: nameController.text);
+                      Navigator.pushNamed(context, 'registerconfirm');
+                    }),
+                    child: const Text('Продолжить')),
+              ],
             ),
-          );
-        } else {
-          return const CircularProgressIndicator();
-        }
-      },
+          ),
+        ),
+      ),
     );
   }
 }

@@ -40,10 +40,7 @@ class _ConfirmLoginPageState extends State<ConfirmLoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final registerBloc = context.read<RegisterBloc>();
-    return BlocBuilder<RegisterBloc, RegisterState>(
-      builder: (context, state) {
-        return KeyboardDismissOnTap(
+   return KeyboardDismissOnTap(
           child: Scaffold(
             appBar: AppBar(),
             body: Container(
@@ -107,8 +104,6 @@ class _ConfirmLoginPageState extends State<ConfirmLoginPage> {
             ),
           ),
         );
-      },
-    );
   }
 
   confirmLogin({String? code}) async {

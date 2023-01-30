@@ -37,9 +37,7 @@ class _SignNumberPageState extends State<SignNumberPage> {
   @override
   Widget build(BuildContext context) {
     final mainBloc = context.read<MainBloc>();
-    return BlocBuilder<RegisterBloc, RegisterState>(
-      builder: (context, state) {
-        return KeyboardDismissOnTap(
+    return KeyboardDismissOnTap(
           child: SafeArea(
             child: Scaffold(
               appBar: AppBar(
@@ -111,7 +109,6 @@ class _SignNumberPageState extends State<SignNumberPage> {
             ),
           ),
         );
-      },
-    );
+    
   }
 }

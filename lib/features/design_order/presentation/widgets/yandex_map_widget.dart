@@ -41,20 +41,19 @@ class _YandexMapWidgetState extends State<YandexMapWidget> {
               child: Column(
                 children: [
                   SizedBox(
-                     height: 100,
+                    height: 100,
                     child: YandexMap(
                       onMapCreated: ((YandexMapController controller) async {
                         widget.controller = controller;
                         completer.complete(controller);
-                        await controller.moveCamera(CameraUpdate.newCameraPosition(
-                            CameraPosition(
+                        await controller.moveCamera(
+                            CameraUpdate.newCameraPosition(CameraPosition(
                                 target: Point(
                                     latitude: state.latitude!,
                                     longitude: state.longitude!))));
                       }),
                     ),
                   ),
-                  
                 ],
               ),
             ),
