@@ -10,9 +10,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class RegisterConfirmApi {
   static registerConfirm({String? code}) async {
     try {
-       final SharedPreferences preferences = await SharedPreferences.getInstance();
+      final SharedPreferences preferences =
+          await SharedPreferences.getInstance();
       final number = preferences.getString('phone');
-      final a =await Dio().post('$baseUrl/v1/customers/register-confirm',
+      final res = await Dio().post('$baseUrl/v1/customers/register-confirm',
           data: {'phone': "+998$number", 'code': code},
           options: Options(headers: {
             'shipper': shipperId,
@@ -20,7 +21,7 @@ class RegisterConfirmApi {
           }));
       SharedPreferences setBoolean = await SharedPreferences.getInstance();
       await setBoolean.setBool('isActive', true);
-      return a.statusCode;
+      return res.statusCode;
     } catch (e) {
       print(e);
     }

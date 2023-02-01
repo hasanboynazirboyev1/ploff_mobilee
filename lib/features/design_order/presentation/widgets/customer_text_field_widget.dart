@@ -6,9 +6,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/features/design_order/presentation/bloc/design_order_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomerTextfieldWidget extends StatelessWidget {
+class CustomerTextfieldWidget extends StatefulWidget {
   const CustomerTextfieldWidget({super.key});
+
+  @override
+  State<CustomerTextfieldWidget> createState() =>
+      _CustomerTextfieldWidgetState();
+}
+
+class _CustomerTextfieldWidgetState extends State<CustomerTextfieldWidget> {
+  late TextEditingController apartmentController;
+  late TextEditingController floorController;
+  late TextEditingController buildingController;
+  @override
+  void initState() {
+    apartmentController = TextEditingController();
+    floorController = TextEditingController();
+    buildingController = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +39,12 @@ class CustomerTextfieldWidget extends StatelessWidget {
                 height: 48,
                 width: MediaQuery.of(context).size.width * .29,
                 child: TextField(
+                  onSubmitted: (value) async {
+                    final SharedPreferences preferences =
+                        await SharedPreferences.getInstance();
+                    preferences.setString('building', value);
+                  },
+                  controller: buildingController,
                   style: const TextStyle(fontSize: 15),
                   decoration: InputDecoration(
                     isDense: true,
@@ -32,8 +56,7 @@ class CustomerTextfieldWidget extends StatelessWidget {
                     fillColor: const Color(0xffF5F5F5),
                     filled: true,
                     focusedBorder: OutlineInputBorder(
-                      
-                      borderSide: BorderSide(color: yellowColor),
+                      borderSide: const BorderSide(color: yellowColor),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     enabledBorder: OutlineInputBorder(
@@ -48,6 +71,13 @@ class CustomerTextfieldWidget extends StatelessWidget {
                 height: 48,
                 width: MediaQuery.of(context).size.width * .29,
                 child: TextField(
+                  controller: apartmentController,
+                  onSubmitted: (value) async {
+                    final SharedPreferences preferences =
+                        await SharedPreferences.getInstance();
+                    preferences.setString('apartment', value);
+                    print(value);
+                  },
                   keyboardType: TextInputType.number,
                   style: const TextStyle(fontSize: 15),
                   decoration: InputDecoration(
@@ -75,6 +105,13 @@ class CustomerTextfieldWidget extends StatelessWidget {
                 height: 48,
                 width: MediaQuery.of(context).size.width * .29,
                 child: TextField(
+                  onSubmitted: (value) async {
+                    final SharedPreferences preferences =
+                        await SharedPreferences.getInstance();
+                    preferences.setString('floor', value);
+                    print(value);
+                  },
+                  controller: floorController,
                   style: const TextStyle(fontSize: 15),
                   decoration: InputDecoration(
                     isDense: true,

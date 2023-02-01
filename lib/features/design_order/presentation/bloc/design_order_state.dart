@@ -24,7 +24,7 @@ class DesignOrderHomeState extends DesignOrderState {
     'assets/svg_icons/design_order_icon/ic_moto.svg',
     'assets/svg_icons/design_order_icon/ic_clock.svg',
   ];
-  List paymentList = ['Наличные', 'Payme', 'Click'];
+  List paymentList = ['Наличные', 'payme', 'click'];
   DesignOrderHomeState(
       {this.nearestBranchModel,
       required this.checkBoleans,

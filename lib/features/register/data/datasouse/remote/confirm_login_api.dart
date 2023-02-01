@@ -14,9 +14,8 @@ class ConfirmLoginApi {
       final SharedPreferences preferences =
           await SharedPreferences.getInstance();
       final number = preferences.getString('phone');
-   
 
-      final a = await Dio().post('$baseUrl/v1/customers/confirm-login',
+      final res = await Dio().post('$baseUrl/v1/customers/confirm-login',
           data: {
             'phone': "+998$number",
             'fcm_token':
@@ -27,8 +26,9 @@ class ConfirmLoginApi {
             'shipper': shipperId,
             'platform': '6bd7c2e3-d35e-47df-93ce-ed54ed53f95f'
           }));
+      await preferences.setString('access_token', res.data['access_token']);
       await preferences.setBool('isActive', true);
-      return a.statusCode;
+      return res.statusCode;
     } catch (e) {
       print(e);
     }

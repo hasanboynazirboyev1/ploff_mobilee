@@ -8,8 +8,8 @@ import 'package:gap/gap.dart';
 import '../../order_bloc/order_bloc.dart';
 
 
-class OrderDatasPage extends StatelessWidget {
-  const OrderDatasPage({super.key});
+class OrderAllDatasPage extends StatelessWidget {
+  const OrderAllDatasPage({super.key});
 
   @override
   Widget build(BuildContext context) {

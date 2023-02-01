@@ -12,6 +12,7 @@ import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/features/design_order/data/repository/yandex_map_funcs.dart';
 import 'package:ploff_mobile/features/design_order/presentation/bloc/design_order_bloc.dart';
 import 'package:ploff_mobile/features/design_order/presentation/widgets/yandex_map_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class DesignFilialsWidget extends StatefulWidget {
@@ -29,8 +30,6 @@ class _DesignFilialsWidgetState extends State<DesignFilialsWidget> {
 
   @override
   void initState() {
-    // completer = Completer();
-
     super.initState();
   }
 
@@ -56,7 +55,7 @@ class _DesignFilialsWidgetState extends State<DesignFilialsWidget> {
                 ),
                 const Gap(16),
                 Container(
-                  height: 300,
+                  height: 156,
                   decoration: BoxDecoration(
                     color: whiteColor,
                     borderRadius: BorderRadius.circular(16),
@@ -64,7 +63,17 @@ class _DesignFilialsWidgetState extends State<DesignFilialsWidget> {
                   child: YandexMap(
                     mapObjects: mapObjects,
                     onMapCreated: ((YandexMapController controller) async {
+                      final SharedPreferences preferences =
+                          await SharedPreferences.getInstance();
+                      final lat = preferences.getString('lat');
+                      final long = preferences.getString('long');
                       ycontroller = controller;
+                      YandexMapFunc.mapControlFunc(
+                          mapObjectId: mapObjectId,
+                          mapObjects: mapObjects,
+                          ycontroller: ycontroller,
+                          lat: double.parse(lat!),
+                          long: double.parse(long!));
                     }),
                   ),
                 ),

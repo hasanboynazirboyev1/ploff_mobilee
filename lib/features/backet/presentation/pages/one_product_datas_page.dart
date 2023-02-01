@@ -19,7 +19,7 @@ import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
 import 'package:ploff_mobile/features/main_home/presentation/main_bloc/main_bloc.dart';
 
 class OneProductDatasPage extends StatefulWidget {
-  OneProductDatasPage({
+  const OneProductDatasPage({
     super.key,
   });
 

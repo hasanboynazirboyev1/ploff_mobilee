@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:ploff_mobile/features/backet/data/datasourse/remote/product_api.dart';
 import 'package:ploff_mobile/features/backet/data/datasourse/remote/one_product_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../home/data/models/one_product_model.dart';
 import '../../data/datasourse/local/hive/hive_boxses.dart';
@@ -20,6 +21,9 @@ class BacketBloc extends Bloc<BacketEvent, BacketState> {
     });
     on<OneProductEvent>((event, emit) async {
       final oneProd = await OneProductApi.getOneProduct(event.id!);
+      final SharedPreferences preferences =
+          await SharedPreferences.getInstance();
+      preferences.setString('productId', event.id!);
       emit(BacketHomeState(productNum: 1, oneProductModel: oneProd));
     });
     on<DecrementNumEvent>((event, emit) async {

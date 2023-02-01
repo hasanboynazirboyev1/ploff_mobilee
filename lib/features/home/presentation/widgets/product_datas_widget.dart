@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
 import 'package:ploff_mobile/features/backet/presentation/pages/one_product_datas_page.dart';
 import 'package:ploff_mobile/features/home/presentation/bloc/home_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductDatasWidget extends StatelessWidget {
   ProductDatasWidget({super.key, this.indexx});
@@ -23,12 +24,24 @@ class ProductDatasWidget extends StatelessWidget {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {
+                    onTap: () async {
+                      final SharedPreferences preferences =
+                          await SharedPreferences.getInstance();
+                      await preferences.setString(
+                          'productId',
+                          state.products!.categories![indexx!].products![index]
+                              .id!);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: ((context) => BlocProvider(
-                                    create: (context) => BacketBloc()..add(OneProductEvent(id: state.products!.categories![indexx!].products![index].id)),
+                                    create: (context) => BacketBloc()
+                                      ..add(OneProductEvent(
+                                          id: state
+                                              .products!
+                                              .categories![indexx!]
+                                              .products![index]
+                                              .id)),
                                     child: OneProductDatasPage(),
                                   ))));
                     },

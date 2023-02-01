@@ -8,22 +8,37 @@ import 'package:ploff_mobile/features/design_order/presentation/bloc/design_orde
 
 import '../../../backet/data/datasourse/local/hive/hive_boxses.dart';
 
-class ProductCheckWidget extends StatelessWidget {
-  const ProductCheckWidget({super.key});
+class ProductCheckWidget extends StatefulWidget {
+   ProductCheckWidget({super.key});
 
+  @override
+  State<ProductCheckWidget> createState() => _ProductCheckWidgetState();
+}
+
+class _ProductCheckWidgetState extends State<ProductCheckWidget> {
+   int  inPrice = 0;
+
+   @override
+  void initState() {
+    
+    super.initState();
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DesignOrderBloc, DesignOrderState>(
         builder: (context, state) {
       if (state is DesignOrderHomeState) {
+        
         return Container(
           color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
-                padding:  EdgeInsets.all(16),
-                child:  Text(
+                padding: EdgeInsets.all(16),
+                child: Text(
                   'Чек',
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
                 ),
@@ -32,6 +47,7 @@ class ProductCheckWidget extends StatelessWidget {
                 valueListenable: HiveBoxses.getData().listenable(),
                 builder: (context, Box<OneProductModelHive> box, child) {
                   final products = HiveBoxses.getProduct(box);
+                  
                   return Column(
                     children: [
                       ListView.builder(
@@ -55,12 +71,12 @@ class ProductCheckWidget extends StatelessWidget {
                               ),
                             );
                           })),
-                      const ListTile(
+                       ListTile(
                           title: Text('Общая сумма',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600)),
-                          trailing: Text('24000 sum',
+                          trailing: Text(products[0].inPrice.toString(),
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600))),
@@ -76,4 +92,6 @@ class ProductCheckWidget extends StatelessWidget {
       }
     });
   }
+
+  
 }

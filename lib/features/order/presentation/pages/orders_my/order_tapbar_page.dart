@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_mobile/features/order/presentation/order_bloc/order_bloc.dart';
+import 'package:ploff_mobile/features/order/presentation/pages/orders_my/order_active_page.dart';
 import 'package:ploff_mobile/features/order/presentation/pages/orders_my/order_history_page.dart';
 import 'order_default_page.dart';
 
@@ -91,8 +92,10 @@ class _OrderTabBarpageState extends State<OrderTabBarPage>
                         color: const Color(0xfff5f5f5),
                         child: TabBarView(
                           controller: tabController,
-                          children: const [
-                            OrderDefaultPage(),
+                          children: [
+                            state.productOrderModel == null
+                                ? OrderDefaultPage()
+                                : OrderActivePage(),
                             OrderHistoryPage(),
                           ],
                         ),
@@ -102,7 +105,7 @@ class _OrderTabBarpageState extends State<OrderTabBarPage>
                 ),
               ));
         } else {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
       },
     );

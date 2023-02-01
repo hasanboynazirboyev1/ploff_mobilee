@@ -13,3 +13,6 @@ class ExitAccEvent extends MainEvent{
 ExitAccEvent(this.context);
 }
 class ThrowfirstPageEvent extends MainEvent{}
+class Throw3pageEvent extends MainEvent{
+  Throw3pageEvent();
+}

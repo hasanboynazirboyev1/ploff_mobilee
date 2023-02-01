@@ -8,13 +8,20 @@ import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_model.dart';
 import 'package:ploff_mobile/features/backet/data/repository/backet_servise_api.dart';
 import 'package:ploff_mobile/features/backet/presentation/bloc/backet_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../design_order/data/repository/design_order_api.dart';
 import '../../data/datasourse/local/hive/hive_boxses.dart';
 
-class ValueListanableWidget extends StatelessWidget {
+class ValueListanableWidget extends StatefulWidget {
   const ValueListanableWidget({super.key});
 
+  @override
+  State<ValueListanableWidget> createState() => _ValueListanableWidgetState();
+}
+
+class _ValueListanableWidgetState extends State<ValueListanableWidget> {
+  int? inPrice;
   @override
   Widget build(BuildContext context) {
     final backetBloc = context.read<BacketBloc>();
@@ -26,8 +33,8 @@ class ValueListanableWidget extends StatelessWidget {
               valueListenable: HiveBoxses.getData().listenable(),
               builder: (BuildContext context, Box<OneProductModelHive> box,
                   Widget? child) {
-                
                 final products = HiveBoxses.getProduct(box);
+
                 return CustomScrollView(
                   slivers: [
                     SliverPadding(
@@ -122,6 +129,11 @@ class ValueListanableWidget extends StatelessWidget {
                                                   products[index].copyWith(
                                                       count: (count + 1)
                                                           .toString()));
+                                              
+                                              box.put(
+                                                  products[index].id,
+                                                  products[index].copyWith(
+                                                      inPrice: inPrice));
                                             }),
                                             icon: const Icon(
                                               Icons.add,
@@ -148,7 +160,10 @@ class ValueListanableWidget extends StatelessWidget {
                             padding: EdgeInsets.all(16),
                             child: ElevatedButton(
                               child: Text('Оформить заказ'),
-                              onPressed: () {
+                              onPressed: () async {
+                                final SharedPreferences preferences =
+                                    await SharedPreferences.getInstance();
+                               
                                 Navigator.pushNamed(context, 'designorder');
                               },
                             ),
@@ -160,12 +175,23 @@ class ValueListanableWidget extends StatelessWidget {
                 );
               },
             ),
-           
           );
         } else {
           return SizedBox();
         }
       },
     );
+  }
+
+  hisobla(List<OneProductModelHive> hive, int inPrice) {
+    for (var i = 0; i < hive.length; i++) {
+      int a = int.parse(hive[i].count) * hive[i].outPrice;
+      print(
+          "${a} *************************************************************************************************************************** aaa");
+
+      inPrice = inPrice + a;
+      print(
+          "${inPrice} ***************************************************************************************************************************");
+    }
   }
 }

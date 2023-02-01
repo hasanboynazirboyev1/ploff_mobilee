@@ -27,7 +27,7 @@ class OrderHistoryPage extends StatelessWidget {
           )
         );
        }else{
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
        }
       },
     );

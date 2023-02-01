@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
+import 'package:ploff_mobile/features/design_order/data/repository/design_order_api.dart';
 import 'package:ploff_mobile/features/home/presentation/pages/home_page.dart';
 import 'package:ploff_mobile/features/profile/presentation/pages/profile_page.dart';
 import 'package:ploff_mobile/features/register/presentation/bloc/register_bloc.dart';
@@ -26,18 +27,28 @@ class MainBloc extends Bloc<MainEvent, MainState> {
           Navigator.pushNamed(event.context!, 'signnumber');
         }
       }
+
       emit(MainHomeState(
         activeIndex: event.index,
       ));
     });
     on<MainInititalEvent>((event, emit) async {
       await Hive.openBox('productDb');
+      try {
+        await DesigOrderApi.getOrder();
+      } catch (e) {}
       emit(MainHomeState(
         activeIndex: 0,
       ));
     });
     on<ThrowfirstPageEvent>((event, emit) {
       emit(MainHomeState(activeIndex: 0));
+    });
+    on<Throw3pageEvent>((event, emit) async {
+      try {
+        await DesigOrderApi.getOrder();
+      } catch (e) {}
+      emit(MainHomeState(activeIndex: 2));
     });
   }
 }

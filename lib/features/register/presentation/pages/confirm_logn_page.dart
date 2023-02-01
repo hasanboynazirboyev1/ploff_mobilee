@@ -40,77 +40,77 @@ class _ConfirmLoginPageState extends State<ConfirmLoginPage> {
 
   @override
   Widget build(BuildContext context) {
-   return KeyboardDismissOnTap(
-          child: Scaffold(
-            appBar: AppBar(),
-            body: Container(
-              margin: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: const [
-                      Text(
-                        "Регистрация",
-                        style: TextStyle(
-                            fontSize: 28,
-                            color: Color(0xff000000),
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
+    return KeyboardDismissOnTap(
+      child: Scaffold(
+        appBar: AppBar(),
+        body: Container(
+          margin: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: const [
+                  Text(
+                    "Регистрация",
+                    style: TextStyle(
+                        fontSize: 28,
+                        color: Color(0xff000000),
+                        fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(
-                    child: Form(
-                      child: Pinput(
-                        controller: codeController,
-                        validator: (v) {
-                          if (v!.isEmpty) {
-                            return "Неверный код";
-                          }
-                        },
-                        length: 6,
-                        defaultPinTheme: PinTheme(
-                            height: 48,
-                            width: 48,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: Colors.grey[200])),
-                        focusedPinTheme: PinTheme(
-                            height: 48,
-                            width: 48,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.yellow),
-                              borderRadius: BorderRadius.circular(12),
-                              color: Colors.grey[200],
-                            )),
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                      ),
-                    ),
-                  ),
-                  ElevatedButton(
-                      onPressed: (() async {
-                        // final status = await ConfirmLoginApi.confirmLogin(
-                        //     code: codeController.text);
-                        // if (status == 200) {
-
-                        // }
-                        await confirmLogin(code: codeController.text);
-                      }),
-                      child: const Text('Продолжить')),
                 ],
               ),
-            ),
+              SizedBox(
+                child: Form(
+                  child: Pinput(
+                    controller: codeController,
+                    validator: (v) {
+                      if (v!.isEmpty) {
+                        return "Неверный код";
+                      }
+                    },
+                    length: 6,
+                    defaultPinTheme: PinTheme(
+                        height: 48,
+                        width: 48,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Colors.grey[200])),
+                    focusedPinTheme: PinTheme(
+                        height: 48,
+                        width: 48,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.yellow),
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.grey[200],
+                        )),
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: (() async {
+                    // final status = await ConfirmLoginApi.confirmLogin(
+                    //     code: codeController.text);
+                    // if (status == 200) {
+
+                    // }
+                    await confirmLogin(code: codeController.text);
+                  }),
+                  child: const Text('Продолжить')),
+            ],
           ),
-        );
+        ),
+      ),
+    );
   }
 
   confirmLogin({String? code}) async {
     try {
       final SharedPreferences preferences =
           await SharedPreferences.getInstance();
-     final phone = preferences.getString('phone');
+      final phone = preferences.getString('phone');
 
       final res = await Dio().post('$baseUrl/v1/customers/confirm-login',
           data: {
@@ -125,7 +125,6 @@ class _ConfirmLoginPageState extends State<ConfirmLoginPage> {
           }));
       await preferences.setBool('isActive', true);
       await preferences.setString('access_token', res.data['access_token']);
-      await preferences.setString('refresh_token', res.data['refresh_token']);
 
       Navigator.pushNamedAndRemoveUntil(context, 'mainhome', (route) => false);
     } catch (e) {

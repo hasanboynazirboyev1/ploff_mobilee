@@ -19,3 +19,5 @@ abstract class DesignOrderEvent {}
   int? index;
   CheckBoxClockEvent(this.index);
  }
+
+class GetOndemandOrderEvent extends DesignOrderEvent{}
