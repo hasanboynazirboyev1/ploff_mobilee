@@ -84,6 +84,7 @@ class _DesignFilialsWidgetState extends State<DesignFilialsWidget> {
                     onMapCreated: ((YandexMapController controller) async {
                       ycontroller = controller;
                       controller.moveCamera(
+                        animation: MapAnimation(type: MapAnimationType.smooth, duration: 2.0),
                         CameraUpdate.newCameraPosition(
                           CameraPosition(zoom: 15, target: point),
                         ),
@@ -100,6 +101,7 @@ class _DesignFilialsWidgetState extends State<DesignFilialsWidget> {
                     return ListTile(
                       onTap: () async {
                         await ycontroller!.moveCamera(
+                          animation: MapAnimation(type: MapAnimationType.smooth, duration: 2.0),
                             CameraUpdate.newCameraPosition(CameraPosition(
                                 target: Point(
                           latitude: state.latitude!,

@@ -75,9 +75,10 @@ class LoadingProductWidget extends StatelessWidget {
               ),
             ),
           ),
-          SliverGap(170),
-          SliverToBoxAdapter(
-            child: Container(
+         
+        ],
+      ),
+      bottomSheet: Container(
               height: 200,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -138,9 +139,7 @@ class LoadingProductWidget extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ],
-      )),
+      ),
     );
   }
 }

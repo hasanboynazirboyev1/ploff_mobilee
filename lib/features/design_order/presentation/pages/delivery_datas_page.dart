@@ -120,7 +120,8 @@ class _DeliveryDatasPageState extends State<DeliveryDatasPage> {
                             onMapCreated:
                                 ((YandexMapController controller) async {
                               controller.moveCamera(
-                                  CameraUpdate.newCameraPosition(CameraPosition(
+                                animation:const  MapAnimation(type: MapAnimationType.smooth, duration: 2.0),
+                                  CameraUpdate.newCameraPosition(const CameraPosition(
                                       zoom: 15,
                                       target: Point(
                                           latitude: 39.652451,

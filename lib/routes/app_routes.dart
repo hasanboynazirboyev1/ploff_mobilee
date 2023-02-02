@@ -21,7 +21,7 @@ class AppRoutes {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-            builder: ((context) =>  MainHomePage()));
+            builder: ((context) =>  SplashScreenPage()));
       case 'mainhome':
         return MaterialPageRoute(builder: ((context) => const MainHomePage()));
       case 'home':
