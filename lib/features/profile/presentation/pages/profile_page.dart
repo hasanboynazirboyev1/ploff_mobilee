@@ -8,7 +8,6 @@ import 'package:ploff_mobile/features/profile/presentation/bloc/profile_bloc.dar
 
 import 'package:ploff_mobile/features/profile/presentation/widgets/profile_show_dialog_widget.dart';
 
-
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -93,14 +92,14 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Spacer(),
               Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
                   Padding(
                     padding: EdgeInsets.only(
                       right: 16,
                       left: 16,
                     ),
-                    // child: SHowDialogWidget(),
+                    child: SHowDialogWidget(),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 16, bottom: 16),

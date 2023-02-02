@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
 import 'package:ploff_mobile/features/backet/data/datasourse/local/hive/hive_boxses.dart';
 import 'package:ploff_mobile/features/design_order/data/models/customer_adress_model.dart';

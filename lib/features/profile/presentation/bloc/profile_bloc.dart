@@ -17,6 +17,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final phone = prefs.getString('phone');
       emit(ProfileHomeState(name: name,phone: phone));
     });
+    on<ExitProfileEvent>((event, emit)async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('isActive', false);
+    });
 
   }
 }

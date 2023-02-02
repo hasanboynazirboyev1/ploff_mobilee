@@ -27,6 +27,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
           Navigator.pushNamed(event.context!, 'signnumber');
         }
       }
+     
 
       emit(MainHomeState(
         activeIndex: event.index,
@@ -34,9 +35,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     });
     on<MainInititalEvent>((event, emit) async {
       await Hive.openBox('productDb');
-      try {
-        await DesigOrderApi.getOrder();
-      } catch (e) {}
+
       emit(MainHomeState(
         activeIndex: 0,
       ));

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ploff_mobile/constants/app_constatnts.dart';
+import 'package:ploff_mobile/features/main_home/presentation/main_bloc/main_bloc.dart';
 import 'package:ploff_mobile/features/register/data/datasouse/remote/confirm_login_api.dart';
 // import 'package:ploff_mobile/presentation/blocs/register/register_bloc.dart';
 import 'package:ploff_mobile/features/main_home/presentation/pages/main_home_page.dart';
@@ -93,6 +94,7 @@ class _ConfirmLoginPageState extends State<ConfirmLoginPage> {
                   onPressed: (() async {
                     await ConfirmLoginApi.confirmLoginn(context,
                         code: codeController.text);
+                    context.read<MainBloc>().add(ThrowfirstPageEvent());
                   }),
                   child: const Text('Продолжить')),
             ],

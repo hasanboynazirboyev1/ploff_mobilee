@@ -28,9 +28,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       final state = this.state as RegisterHomeState;
     });
     on<RegisterConfirmEvent>((event, emit) async {});
-    on<ExitAccEvent>((event, emit) async {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool('isActive', false);
-    });
+    // on<ExitAccEvent>((event, emit) async {
+      
+    // });
   }
 }
