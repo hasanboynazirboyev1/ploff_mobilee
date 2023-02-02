@@ -23,8 +23,26 @@ class DeliveryDatasPage extends StatefulWidget {
 
 class _DeliveryDatasPageState extends State<DeliveryDatasPage> {
   late TextEditingController controller;
+  late List<MapObject> mapObjects;
+
+  late MapObjectId mapObjectId =
+      mapObjectId = MapObjectId('normal_icon_placemark');
+  late PlacemarkMapObject mapIcon;
   @override
   void initState() {
+    mapIcon = PlacemarkMapObject(
+      mapId: mapObjectId,
+      point: Point(latitude: 39.652451, longitude: 66.970139),
+      icon: PlacemarkIcon.single(PlacemarkIconStyle(
+        image: BitmapDescriptor.fromAssetImage(
+            'assets/svg_icons/order_icons/location.png'),
+        // anchor: const Offset(0.5, 0.5),
+        zIndex: 1,
+      )),
+      opacity: 1,
+    );
+    mapObjects = [mapIcon];
+
     controller = TextEditingController(text: 'Tashkent Uzbekistan');
     super.initState();
   }
@@ -98,13 +116,15 @@ class _DeliveryDatasPageState extends State<DeliveryDatasPage> {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: YandexMap(
+                            mapObjects: mapObjects,
                             onMapCreated:
                                 ((YandexMapController controller) async {
                               controller.moveCamera(
                                   CameraUpdate.newCameraPosition(CameraPosition(
+                                      zoom: 15,
                                       target: Point(
-                                          latitude: 41.311081,
-                                          longitude: 69.240562))));
+                                          latitude: 39.652451,
+                                          longitude: 66.970139))));
                             }),
                           ),
                         ),
@@ -119,6 +139,7 @@ class _DeliveryDatasPageState extends State<DeliveryDatasPage> {
                               color: grayColor,
                               borderRadius: BorderRadius.circular(12)),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * .71,
@@ -127,10 +148,7 @@ class _DeliveryDatasPageState extends State<DeliveryDatasPage> {
                                         fontSize: 15,
                                         fontWeight: FontWeight.w400)),
                               ),
-                              IconButton(
-                                  onPressed: (() {}),
-                                  icon: const Icon(
-                                      Icons.keyboard_arrow_down_rounded))
+                              const Icon(Icons.keyboard_arrow_down_rounded),
                             ],
                           ),
                         ),
@@ -155,7 +173,8 @@ class _DeliveryDatasPageState extends State<DeliveryDatasPage> {
                         onPressed: () async {
                           await DesigOrderApi.getComputePrice(
                               "651ee775-4371-4dd0-a313-11ab2f584494");
-                              Navigator.pushNamedAndRemoveUntil(context, 'mainhome', (route) => false);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, 'mainhome', (route) => false);
                         },
                       ),
                     ),

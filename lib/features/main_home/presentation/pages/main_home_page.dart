@@ -94,7 +94,7 @@ class _MainHomePageState extends State<MainHomePage> {
           ),
         );
       } else {
-        return const CircularProgressIndicator();
+        return Scaffold(body: Center(child: const CircularProgressIndicator()));
       }
     }));
   }

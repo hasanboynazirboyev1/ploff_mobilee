@@ -9,28 +9,25 @@ import 'package:ploff_mobile/features/design_order/presentation/bloc/design_orde
 import '../../../backet/data/datasourse/local/hive/hive_boxses.dart';
 
 class ProductCheckWidget extends StatefulWidget {
-   ProductCheckWidget({super.key});
+  ProductCheckWidget({super.key});
 
   @override
   State<ProductCheckWidget> createState() => _ProductCheckWidgetState();
 }
 
 class _ProductCheckWidgetState extends State<ProductCheckWidget> {
-   int  inPrice = 0;
+  int inPrice = 0;
 
-   @override
+  @override
   void initState() {
-    
     super.initState();
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DesignOrderBloc, DesignOrderState>(
         builder: (context, state) {
       if (state is DesignOrderHomeState) {
-        
         return Container(
           color: Colors.white,
           child: Column(
@@ -47,7 +44,7 @@ class _ProductCheckWidgetState extends State<ProductCheckWidget> {
                 valueListenable: HiveBoxses.getData().listenable(),
                 builder: (context, Box<OneProductModelHive> box, child) {
                   final products = HiveBoxses.getProduct(box);
-                  
+
                   return Column(
                     children: [
                       ListView.builder(
@@ -71,12 +68,12 @@ class _ProductCheckWidgetState extends State<ProductCheckWidget> {
                               ),
                             );
                           })),
-                       ListTile(
+                      const ListTile(
                           title: Text('Общая сумма',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600)),
-                          trailing: Text(products[0].inPrice.toString(),
+                          trailing: Text('14 000 sum',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600))),
@@ -92,6 +89,4 @@ class _ProductCheckWidgetState extends State<ProductCheckWidget> {
       }
     });
   }
-
-  
 }

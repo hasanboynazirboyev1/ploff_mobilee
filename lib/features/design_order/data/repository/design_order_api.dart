@@ -80,15 +80,15 @@ class DesigOrderApi {
 
   static getOndemandOrder() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-
-    String acscestoken =
-        '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzU0MjMzNjUsImlhdCI6MTY3NDEyNzM2NSwiaXNzIjoidXNlciIsInNoaXBwZXJfaWQiOiJkNGIxNjU4Zi0zMjcxLTQ5NzMtODU5MS05OGE4MjkzOWE2NjQiLCJzdWIiOiJhODA3MTgyOS1jYTI0LTRjM2YtODU3ZS1lZTA0MjE5ZjUzYTgiLCJ1c2VyX3R5cGVfaWQiOiI5YjMxMjg2ZC1kYzIxLTQ1NzItYjIwYy05YjZjYjdkMjlkODkifQ.xFRPNwupNOp9bzcWXmCrucj4DrbROniBbcEIGqHVJp0''';
-
+    final cusotmerId = preferences.getString('customer_id');
+    final accesToken = preferences.getString('access_token');
+    print('Cusomer id $cusotmerId');
+    print('acsess id $accesToken');
     final res = await Dio().post('$baseUrl/v2/ondemand-order',
         data: jsonEncode(<String, dynamic>{
           "apartment": '',
           "building": '',
-          "client_id": '4436d109-d1a9-4e46-a613-ab8c96b4322a',
+          "client_id": cusotmerId,
           "co_delivery_price": 0,
           "delivery_time": "",
           "delivery_type": 'self-pickup',
@@ -122,7 +122,7 @@ class DesigOrderApi {
           "future_time": null
         }),
         options: Options(headers: {
-          'Authorization': acscestoken,
+          'Authorization': accesToken,
         }));
 
     print(
@@ -131,18 +131,13 @@ class DesigOrderApi {
 
   static getOrder() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    // final accesToken = preferences.getString('acces_token');
-    // String acscestoken =
-    // '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzU0MjMzNjUsImlhdCI6MTY3NDEyNzM2NSwiaXNzIjoidXNlciIsInNoaXBwZXJfaWQiOiJkNGIxNjU4Zi0zMjcxLTQ5NzMtODU5MS05OGE4MjkzOWE2NjQiLCJzdWIiOiJhODA3MTgyOS1jYTI0LTRjM2YtODU3ZS1lZTA0MjE5ZjUzYTgiLCJ1c2VyX3R5cGVfaWQiOiI5YjMxMjg2ZC1kYzIxLTQ1NzItYjIwYy05YjZjYjdkMjlkODkifQ.xFRPNwupNOp9bzcWXmCrucj4DrbROniBbcEIGqHVJp0''';
-    String accesToken =
-        '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzY1MjQ0MjgsImlhdCI6MTY3NTIyODQyOCwiaXNzIjoidXNlciIsInNoaXBwZXJfaWQiOiJkNGIxNjU4Zi0zMjcxLTQ5NzMtODU5MS05OGE4MjkzOWE2NjQiLCJzdWIiOiI0NDM2ZDEwOS1kMWE5LTRlNDYtYTYxMy1hYjhjOTZiNDMyMmEiLCJ1c2VyX3R5cGVfaWQiOiI5YjMxMjg2ZC1kYzIxLTQ1NzItYjIwYy05YjZjYjdkMjlkODkifQ.8A7v704qPS8zh36NaGSHvHS5o6b2weVq7H0zxTsDHa8''';
-    final res = await Dio().get('$baseUrl/v1/order',
+    final accesToken = preferences.getString('access_token');
+    print(" * *************** $accesToken");
+   final res = await Dio().get('$baseUrl/v1/order',
         queryParameters: {
           "page": 1,
-          'limit': 10,
+          'limit': 100,
           "status_ids": [
-           
-
             "986a0d09-7b4d-4ca9-8567-aa1c6d770505",
             "ccb62ffb-f0e1-472e-bf32-d130bea90617",
             "1b6dc9a3-64aa-4f68-b54f-71ffe8164cd3",
@@ -160,8 +155,9 @@ class DesigOrderApi {
   }
 
   static Future<void> refreshOrder() async {
-    String accesToken =
-        '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzY1MjQ0MjgsImlhdCI6MTY3NTIyODQyOCwiaXNzIjoidXNlciIsInNoaXBwZXJfaWQiOiJkNGIxNjU4Zi0zMjcxLTQ5NzMtODU5MS05OGE4MjkzOWE2NjQiLCJzdWIiOiI0NDM2ZDEwOS1kMWE5LTRlNDYtYTYxMy1hYjhjOTZiNDMyMmEiLCJ1c2VyX3R5cGVfaWQiOiI5YjMxMjg2ZC1kYzIxLTQ1NzItYjIwYy05YjZjYjdkMjlkODkifQ.8A7v704qPS8zh36NaGSHvHS5o6b2weVq7H0zxTsDHa8''';
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    final accesToken = preferences.getString('access_token');
+    
     await Dio().get('$baseUrl/v1/order',
         queryParameters: {
           "page": 1,

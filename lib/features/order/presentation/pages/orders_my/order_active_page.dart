@@ -33,7 +33,8 @@ class OrderActivePage extends StatelessWidget {
                         index: index,
                       );
                     },
-                    childCount: (state.productOrderModel!.orders ?? []).length,
+                    childCount:
+                        ((state.productOrderModel!.orders ?? []).length),
                   ),
                 ),
               ]),

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ploff_mobile/features/design_order/presentation/bloc/design_order_bloc.dart';
 import 'package:ploff_mobile/features/design_order/presentation/pages/delivery_datas_page.dart';
 import 'package:ploff_mobile/features/design_order/presentation/pages/pick_up_page.dart';
+import 'package:ploff_mobile/features/design_order/presentation/widgets/design_loading_widget.dart';
 import 'package:ploff_mobile/features/order/presentation/order_bloc/order_bloc.dart';
 
 import '../../data/repository/design_order_api.dart';
@@ -109,7 +110,7 @@ class _DesignOrderTabBarPageState extends State<DesignOrderTabBarPage>
                 ),
               ));
         } else {
-          return SizedBox();
+          return DesignLoadingWidget();
         }
       },
     );

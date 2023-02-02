@@ -17,7 +17,7 @@ class OrderDatasWidget extends StatelessWidget {
         if (state is OrderHomeState) {
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            margin: EdgeInsets.only(bottom: 16, top: index == 0 ? 16:0 ),
+            margin: EdgeInsets.only(bottom: 16, top: index == 0 ? 16 : 0),
             height: 144,
             decoration: BoxDecoration(
               color: whiteColor,
@@ -29,8 +29,10 @@ class OrderDatasWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        "Заказ №${(state.productOrderModel!.orders![index!].externalOrderId) ?? ''}",style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600),
-                        ),
+                      "Заказ №${(state.productOrderModel!.orders![index!].externalOrderId) ?? ''}",
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                    ),
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 5),
@@ -51,14 +53,25 @@ class OrderDatasWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SvgPicture.asset(
-                        'assets/svg_icons/order_icons/ic_order_check.svg',height: 56),
-                    SvgPicture.asset(
-                        'assets/svg_icons/order_icons/ic_cook.svg',height: 56),
-                    SvgPicture.asset(
-                        'assets/svg_icons/order_icons/ic_car.svg',height: 56),
-                    SvgPicture.asset(
-                        'assets/svg_icons/order_icons/ic_flag.svg',height: 56),
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                            'assets/svg_icons/order_icons/ic_order_check.svg',
+                            height: 56),
+                        Container(
+                          height: 1.6,
+                          width: MediaQuery.of(context).size.height * .06,
+                          color: Color.fromRGBO(245, 193, 9, 1),
+                        ),
+                        SvgPicture.asset(
+                            'assets/svg_icons/order_icons/ic_cook.svg',
+                            height: 56),
+                      ],
+                    ),
+                    SvgPicture.asset('assets/svg_icons/order_icons/ic_car.svg',
+                        height: 56),
+                    SvgPicture.asset('assets/svg_icons/order_icons/ic_flag.svg',
+                        height: 56),
                   ],
                 ),
               ],

@@ -35,6 +35,7 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
     return BlocBuilder<BacketBloc, BacketState>(builder: (context, state) {
       if (state is BacketHomeState) {
         return SafeArea(
+          top: false,
           child: Scaffold(
               body: CustomScrollView(
             slivers: [
@@ -47,7 +48,7 @@ class _OneProductDatasPageState extends State<OneProductDatasPage> {
                 ],
                 iconTheme: const IconThemeData(color: Colors.white),
                 systemOverlayStyle: const SystemUiOverlayStyle(
-                  statusBarColor: Colors.green,
+                  statusBarColor: Colors.transparent,
                   statusBarIconBrightness: Brightness.light,
                   statusBarBrightness: Brightness.dark,
                 ),
