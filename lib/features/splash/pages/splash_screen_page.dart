@@ -12,15 +12,11 @@ class SplashScreenPage extends StatefulWidget {
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
   late bool isActive;
-  getOrders() async {
-    try {
-      await DesigOrderApi.getOrder();
-    } catch (e) {}
-  }
+ 
 
   @override
   void initState() {
-    getOrders();
+    // getOrders();
     Timer(const Duration(seconds: 2),
         (() => Navigator.pushReplacementNamed(context, 'mainhome')));
     super.initState();

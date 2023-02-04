@@ -21,9 +21,10 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       final state = this.state as OrderHomeState;
       
 
-      final prod = await DesigOrderApi.getOrder();
       Navigator.pushNamedAndRemoveUntil(
           event.context!, 'mainhome', (route) => false);
+      final ProductOrderModel prod = await DesigOrderApi.getOrder();
+      print("${prod.orders[2].externalOrderId} ***********************************");
 
       emit(OrderHomeState(productOrderModel: prod, productIsActive: true));
     });

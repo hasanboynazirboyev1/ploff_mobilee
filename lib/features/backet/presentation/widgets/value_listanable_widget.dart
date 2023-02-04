@@ -163,6 +163,7 @@ class _ValueListanableWidgetState extends State<ValueListanableWidget> {
                 child: const Text('Оформить заказ'),
                 onPressed: () async {
                   Navigator.pushNamed(context, 'designorder');
+                  await DesigOrderApi.getNearestBranch();
                 },
               ),
             ),

@@ -1,29 +1,29 @@
 // To parse this JSON data, do
 //
-//     final productOrderModeli = productOrderModeliFromJson(jsonString);
+//     final productOrderModel = productOrderModelFromJson(jsonString);
 
 import 'dart:convert';
 
-ProductOrderModeli productOrderModeliFromJson(String str) => ProductOrderModeli.fromJson(json.decode(str));
+ProductOrderModel productOrderModelFromJson(String str) => ProductOrderModel.fromJson(json.decode(str));
 
-String productOrderModeliToJson(ProductOrderModeli data) => json.encode(data.toJson());
+String productOrderModelToJson(ProductOrderModel data) => json.encode(data.toJson());
 
-class ProductOrderModeli {
-    ProductOrderModeli({
-        this.orders,
-        this.count,
+class ProductOrderModel {
+    ProductOrderModel({
+        required this.orders,
+        required this.count,
     });
 
-    List<Order>? orders;
-    String? count;
+    List<Order> orders;
+    String count;
 
-    factory ProductOrderModeli.fromJson(Map<String, dynamic> json) => ProductOrderModeli(
+    factory ProductOrderModel.fromJson(Map<String, dynamic> json) => ProductOrderModel(
         orders: List<Order>.from(json["orders"].map((x) => Order.fromJson(x))),
         count: json["count"],
     );
 
     Map<String, dynamic> toJson() => {
-        "orders": List<dynamic>.from(orders!.map((x) => x.toJson())),
+        "orders": List<dynamic>.from(orders.map((x) => x.toJson())),
         "count": count,
     };
 }
@@ -32,33 +32,33 @@ class Order {
     Order({
         this.toLocation,
         this.toAddress,
-        this.clientName,
-        this.clientPhoneNumber,
-        this.coDeliveryPrice,
-        this.description,
-        this.externalOrderId,
-        this.deliveryTime,
-        this.deliveryType,
-        this.id,
-        this.clientId,
-        this.courierId,
-        this.courier,
-        this.statusId,
-        this.createdAt,
-        this.finishedAt,
-        this.paymentType,
-        this.source,
-        this.apartment,
-        this.building,
-        this.floor,
-        this.extraPhoneNumber,
-        this.orderAmount,
-        this.paid,
-        this.rating,
-        this.review,
-        this.steps,
-        this.statusNotes,
-        this.isCourierCall,
+         this.clientName,
+         this.clientPhoneNumber,
+         this.coDeliveryPrice,
+         this.description,
+        required this.externalOrderId,
+         this.deliveryTime,
+         this.deliveryType,
+         this.id,
+         this.clientId,
+         this.courierId,
+         this.courier,
+         this.statusId,
+         this.createdAt,
+         this.finishedAt,
+         this.paymentType,
+         this.source,
+         this.apartment,
+         this.building,
+         this.floor,
+         this.extraPhoneNumber,
+         this.orderAmount,
+         this.paid,
+         this.rating,
+         this.review,
+         this.steps,
+         this.statusNotes,
+         this.isCourierCall,
     });
 
     Location? toLocation;
@@ -106,7 +106,7 @@ class Order {
         courierId: json["courier_id"],
         courier: Courier.fromJson(json["courier"]),
         statusId: json["status_id"],
-        createdAt: DateTime.parse(json["created_at"]),
+        // createdAt: DateTime.parse(json["created_at"]),
         finishedAt: json["finished_at"],
         paymentType: json["payment_type"],
         source: json["source"],
@@ -158,12 +158,12 @@ class Order {
 
 class Courier {
     Courier({
-        this.phone,
-        this.firstName,
-        this.lastName,
-        this.vehicleNumber,
+         this.phone,
+         this.firstName,
+         this.lastName,
+         this.vehicleNumber,
         this.courierType,
-        this.location,
+         this.location,
     });
 
     String? phone;
@@ -194,16 +194,16 @@ class Courier {
 
 class Location {
     Location({
-        this.long,
-        this.lat,
+         this.long,
+         this.lat,
     });
 
     double? long;
     double? lat;
 
     factory Location.fromJson(Map<String, dynamic> json) => Location(
-        long: json["long"].toDouble(),
-        lat: json["lat"].toDouble(),
+        long: json["long"]?.toDouble(),
+        lat: json["lat"]?.toDouble(),
     );
 
     Map<String, dynamic> toJson() => {
@@ -214,10 +214,10 @@ class Location {
 
 class StatusNote {
     StatusNote({
-        this.id,
-        this.description,
-        this.statusId,
-        this.createdAt,
+         this.id,
+         this.description,
+         this.statusId,
+         this.createdAt,
     });
 
     String? id;
@@ -242,13 +242,13 @@ class StatusNote {
 
 class Step {
     Step({
-        this.branchName,
-        this.branchId,
-        this.phoneNumber,
-        this.address,
-        this.destinationAddress,
-        this.location,
-        this.description,
+         this.branchName,
+         this.branchId,
+         this.phoneNumber,
+         this.address,
+         this.destinationAddress,
+         this.location,
+         this.description,
     });
 
     String? branchName;

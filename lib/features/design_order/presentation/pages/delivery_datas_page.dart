@@ -12,7 +12,11 @@ import 'package:ploff_mobile/features/design_order/presentation/widgets/clock_or
 import 'package:ploff_mobile/features/design_order/presentation/widgets/customer_text_field_widget.dart';
 import 'package:ploff_mobile/features/design_order/presentation/widgets/payment_type_widget.dart';
 import 'package:ploff_mobile/features/design_order/presentation/widgets/product_check_widget.dart';
+import 'package:ploff_mobile/features/order/presentation/order_bloc/order_bloc.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
+
+import '../../../backet/data/datasourse/local/hive/hive_boxses.dart';
+import '../../../main_home/presentation/main_bloc/main_bloc.dart';
 
 class DeliveryDatasPage extends StatefulWidget {
   const DeliveryDatasPage({super.key});
@@ -49,6 +53,9 @@ class _DeliveryDatasPageState extends State<DeliveryDatasPage> {
 
   @override
   Widget build(BuildContext context) {
+    final orderBloc = context.read<OrderBloc>();
+    final mainBloc = context.read<MainBloc>();
+    final designOrderBloc = context.read<DesignOrderBloc>();
     return BlocBuilder<DesignOrderBloc, DesignOrderState>(
       builder: (context, state) {
         if (state is DesignOrderHomeState) {
@@ -120,12 +127,15 @@ class _DeliveryDatasPageState extends State<DeliveryDatasPage> {
                             onMapCreated:
                                 ((YandexMapController controller) async {
                               controller.moveCamera(
-                                animation:const  MapAnimation(type: MapAnimationType.smooth, duration: 2.0),
-                                  CameraUpdate.newCameraPosition(const CameraPosition(
-                                      zoom: 15,
-                                      target: Point(
-                                          latitude: 39.652451,
-                                          longitude: 66.970139))));
+                                  animation: const MapAnimation(
+                                      type: MapAnimationType.smooth,
+                                      duration: 2.0),
+                                  CameraUpdate.newCameraPosition(
+                                      const CameraPosition(
+                                          zoom: 15,
+                                          target: Point(
+                                              latitude: 39.652451,
+                                              longitude: 66.970139))));
                             }),
                           ),
                         ),
@@ -172,10 +182,10 @@ class _DeliveryDatasPageState extends State<DeliveryDatasPage> {
                       child: ElevatedButton(
                         child: Text('Оформить заказ'),
                         onPressed: () async {
-                          await DesigOrderApi.getComputePrice(
-                              "651ee775-4371-4dd0-a313-11ab2f584494");
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, 'mainhome', (route) => false);
+                          designOrderBloc.add(GetOndemandOrderEvent());
+                          mainBloc.add(Throw3pageEvent());
+                          orderBloc.add(GetOrderDatasEvent(context));
+                          HiveBoxses.getData().clear();
                         },
                       ),
                     ),

@@ -11,9 +11,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DesigOrderApi {
   static getNearestBranch() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    // final accesToken = preferences.getString('acces_token');
-    String acscestoken =
-        '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzU0MjMzNjUsImlhdCI6MTY3NDEyNzM2NSwiaXNzIjoidXNlciIsInNoaXBwZXJfaWQiOiJkNGIxNjU4Zi0zMjcxLTQ5NzMtODU5MS05OGE4MjkzOWE2NjQiLCJzdWIiOiJhODA3MTgyOS1jYTI0LTRjM2YtODU3ZS1lZTA0MjE5ZjUzYTgiLCJ1c2VyX3R5cGVfaWQiOiI5YjMxMjg2ZC1kYzIxLTQ1NzItYjIwYy05YjZjYjdkMjlkODkifQ.xFRPNwupNOp9bzcWXmCrucj4DrbROniBbcEIGqHVJp0''';
+    final accesToken = preferences.getString('access_token');
+    // String acscestoken =
+    //     '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzU0MjMzNjUsImlhdCI6MTY3NDEyNzM2NSwiaXNzIjoidXNlciIsInNoaXBwZXJfaWQiOiJkNGIxNjU4Zi0zMjcxLTQ5NzMtODU5MS05OGE4MjkzOWE2NjQiLCJzdWIiOiJhODA3MTgyOS1jYTI0LTRjM2YtODU3ZS1lZTA0MjE5ZjUzYTgiLCJ1c2VyX3R5cGVfaWQiOiI5YjMxMjg2ZC1kYzIxLTQ1NzItYjIwYy05YjZjYjdkMjlkODkifQ.xFRPNwupNOp9bzcWXmCrucj4DrbROniBbcEIGqHVJp0''';
 
     final lat = preferences.getString('lat');
     final long = preferences.getString('long');
@@ -21,7 +21,7 @@ class DesigOrderApi {
         queryParameters: {"long": "$long", "lat": "$lat"},
         options: Options(headers: {
           'shipper': shipperId,
-          'Authorization': acscestoken,
+          'Authorization': accesToken,
         }));
     final nearestBranch = NearestBranchModel.fromJson(res.data);
 
@@ -57,13 +57,10 @@ class DesigOrderApi {
 
   static getComputePrice(String branchId) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    // final accesToken = preferences.getString('acces_token');
-    String acscestoken =
-        '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzU0MjMzNjUsImlhdCI6MTY3NDEyNzM2NSwiaXNzIjoidXNlciIsInNoaXBwZXJfaWQiOiJkNGIxNjU4Zi0zMjcxLTQ5NzMtODU5MS05OGE4MjkzOWE2NjQiLCJzdWIiOiJhODA3MTgyOS1jYTI0LTRjM2YtODU3ZS1lZTA0MjE5ZjUzYTgiLCJ1c2VyX3R5cGVfaWQiOiI5YjMxMjg2ZC1kYzIxLTQ1NzItYjIwYy05YjZjYjdkMjlkODkifQ.xFRPNwupNOp9bzcWXmCrucj4DrbROniBbcEIGqHVJp0''';
 
     final lat = preferences.getString('lat');
     final long = preferences.getString('long');
-
+    final accesToken = preferences.getString('access_token');
     final res = await Dio().patch('$baseUrl/v1/fares/compute-price',
         data: jsonEncode(<String, dynamic>{
           'branch_id': branchId,
@@ -71,7 +68,7 @@ class DesigOrderApi {
           'long': double.parse(long!),
         }),
         options: Options(headers: {
-          'Authorization': acscestoken,
+          'Authorization': accesToken,
         }));
     await getOndemandOrder();
     await getOrder();
@@ -81,34 +78,35 @@ class DesigOrderApi {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     final cusotmerId = preferences.getString('customer_id');
     final accesToken = preferences.getString('access_token');
-    print('Cusomer id $cusotmerId');
-    print('acsess id $accesToken');
+    final lat = double.parse(preferences.getString('lat') ?? '37.4219983');
+    final long = double.parse(preferences.getString('long') ?? '122.084');
+
     final res = await Dio().post('$baseUrl/v2/ondemand-order',
         data: jsonEncode(<String, dynamic>{
-          "apartment": '',
-          "building": '',
+          "apartment": "",
+          "building": "",
           "client_id": cusotmerId,
           "co_delivery_price": 0,
           "delivery_time": "",
-          "delivery_type": 'self-pickup',
+          "delivery_type": "self-pickup",
           "description": "",
           "is_courier_call": true,
           "extra_phone_number": "",
-          "floor": '',
+          "floor": "",
           "paid": false,
-          "payment_type": 'cash',
+          "payment_type": "cash",
           "source": "android",
           "status_id": "",
           "steps": [
             {
-              "branch_id": '651ee775-4371-4dd0-a313-11ab2f584494',
+              "branch_id": "d94ba13f-932b-428c-b251-c283ee553d97",
               "description": "",
               "products": [
                 {
                   "description": "",
                   "type": "simple",
-                  "price": "14000",
-                  "product_id": '23f141d6-f26f-4890-8ef0-999accbf1012',
+                  "price": "10000.0",
+                  "product_id": "23f141d6-f26f-4890-8ef0-999accbf1012",
                   "quantity": 1.0,
                   "order_modifiers": [],
                   "variants": []
@@ -116,8 +114,8 @@ class DesigOrderApi {
               ]
             }
           ],
-          "to_address": 'Tashkent Uzbekistan',
-          "to_location": {"lat": 41.311081, "long": 69.240562},
+          "to_address": "",
+          "to_location": {"lat": lat, "long": long},
           "future_time": null
         }),
         options: Options(headers: {
@@ -131,8 +129,8 @@ class DesigOrderApi {
   static getOrder() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     final accesToken = preferences.getString('access_token');
-    print(" * *************** $accesToken");
-   final res = await Dio().get('$baseUrl/v1/order',
+    // print(" * *************** $accesToken");
+    final res = await Dio().get('$baseUrl/v1/order',
         queryParameters: {
           "page": 1,
           'limit': 100,
@@ -149,18 +147,21 @@ class DesigOrderApi {
         options: Options(headers: {
           'Authorization': accesToken,
         }));
-
-    return ProductOrderModeli.fromJson(res.data);
+    print(await res.data['orders']);
+    final prod = ProductOrderModel.fromJson(await res.data);
+    print(
+        "${prod.orders[1].externalOrderId} *******************************************************");
+    return prod;
   }
 
-  static Future<void> refreshOrder() async {
+  static Future<ProductOrderModel> refreshOrder() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     final accesToken = preferences.getString('access_token');
-    
-    await Dio().get('$baseUrl/v1/order',
+
+    final res = await Dio().get('$baseUrl/v1/order',
         queryParameters: {
           "page": 1,
-          'limit': 10,
+          'limit': 100,
           "status_ids": [
             "986a0d09-7b4d-4ca9-8567-aa1c6d770505",
             "ccb62ffb-f0e1-472e-bf32-d130bea90617",
@@ -174,5 +175,7 @@ class DesigOrderApi {
         options: Options(headers: {
           'Authorization': accesToken,
         }));
+    final prod = ProductOrderModel.fromJson(await res.data);
+    return prod;
   }
 }

@@ -29,7 +29,7 @@ class OrderDatasWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Заказ №${(state.productOrderModel!.orders![index!].externalOrderId) ?? ''}",
+                      "Заказ №${(state.productOrderModel!.orders[index!].externalOrderId)}",
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
                     ),

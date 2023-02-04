@@ -24,7 +24,7 @@ List orderIconList = [
   "assets/svg_icons/order_icons/ic_creditcard.svg",
 ];
 bool? productIsActive;
-ProductOrderModeli? productOrderModel;
+ProductOrderModel? productOrderModel;
 OrderHomeState({this.productIsActive,this.productOrderModel});
 
 }

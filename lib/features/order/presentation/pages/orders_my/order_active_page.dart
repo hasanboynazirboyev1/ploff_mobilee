@@ -34,7 +34,7 @@ class OrderActivePage extends StatelessWidget {
                       );
                     },
                     childCount:
-                        ((state.productOrderModel!.orders ?? []).length),
+                        ((state.productOrderModel!.orders).length),
                   ),
                 ),
               ]),
